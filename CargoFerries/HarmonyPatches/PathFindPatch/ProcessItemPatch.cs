@@ -12,10 +12,8 @@ namespace CargoFerries.HarmonyPatches.PathFindPatch
     internal class ProcessItemPatch
     {
 
-        private static FieldInfo laneTypesField =
-            typeof(PathFind).GetField("m_laneTypes", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static FieldInfo vehicleTypesField =
-            typeof(PathFind).GetField("m_vehicleTypes", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static FieldInfo laneTypesField = typeof(PathFind).GetField("m_laneTypes", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static FieldInfo vehicleTypesField = typeof(PathFind).GetField("m_vehicleTypes", BindingFlags.NonPublic | BindingFlags.Instance);
 
         public static void Apply()
         {
@@ -92,8 +90,7 @@ namespace CargoFerries.HarmonyPatches.PathFindPatch
 
             static bool DoVanillaCheck(VehicleInfo.VehicleType vehicleType)
             {
-                return (vehicleType & (VehicleInfo.VehicleType.Ferry | VehicleInfo.VehicleType.Monorail)) !=
-                       VehicleInfo.VehicleType.None;
+                return (vehicleType & (VehicleInfo.VehicleType.Ferry | VehicleInfo.VehicleType.Monorail)) != VehicleInfo.VehicleType.None;
             }
         }
 

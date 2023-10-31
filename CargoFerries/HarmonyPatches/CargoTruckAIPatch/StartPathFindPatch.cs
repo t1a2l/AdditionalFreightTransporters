@@ -18,6 +18,8 @@ namespace CargoFerries.HarmonyPatches.CargoTruckAIPatch
                         typeof(Vector3),
                         typeof(bool),
                         typeof(bool),
+                        typeof(bool),
+                        typeof(bool),
                         typeof(bool)
                     }),
                 null, null,
@@ -33,6 +35,8 @@ namespace CargoFerries.HarmonyPatches.CargoTruckAIPatch
                     typeof(Vehicle).MakeByRefType(),
                     typeof(Vector3),
                     typeof(Vector3),
+                    typeof(bool),
+                    typeof(bool),
                     typeof(bool),
                     typeof(bool),
                     typeof(bool)

@@ -41,15 +41,23 @@ namespace CargoFerries.HarmonyPatches.VehicleInfoPatch
         {
             try
             {
-                if (__instance?.m_class?.name != ItemClasses.cargoFerryVehicle.name)
+                if (__instance?.m_class?.name == ItemClasses.cargoFerryVehicle.name)
                 {
-                    return true;
+                    var oldAi = __instance.GetComponent<CargoShipAI>();
+                    Object.DestroyImmediate(oldAi);
+                    var ai = __instance.gameObject.AddComponent<CargoFerryAI>();
+                    PrefabUtil.TryCopyAttributes(oldAi, ai, false);
                 }
 
-                var oldAi = __instance.GetComponent<CargoShipAI>();
-                Object.DestroyImmediate(oldAi);
-                var ai = __instance.gameObject.AddComponent<CargoFerryAI>();
-                PrefabUtil.TryCopyAttributes(oldAi, ai, false);
+                if (__instance?.m_class?.name == ItemClasses.cargoHelicopterVehicle.name)
+                {
+                    var oldAi = __instance.GetComponent<PassengerHelicopterAI>();
+                    Object.DestroyImmediate(oldAi);
+                    var ai = __instance.gameObject.AddComponent<CargoHelicopterAI>();
+                    PrefabUtil.TryCopyAttributes(oldAi, ai, false);
+                }
+
+                return true;
             }
             catch (Exception e)
             {

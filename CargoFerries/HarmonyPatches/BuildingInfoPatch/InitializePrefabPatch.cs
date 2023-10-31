@@ -44,18 +44,26 @@ namespace CargoFerries.HarmonyPatches.BuildingInfoPatch
         {
             try
             {
-                if (__instance?.m_class?.name != ItemClasses.cargoFerryFacility.name)
+                if (__instance?.m_class?.name == ItemClasses.cargoFerryFacility.name)
                 {
-                    return true;
+                    var oldAi = __instance.GetComponent<CargoHarborAI>();
+                    Object.DestroyImmediate(oldAi);
+                    var ai = (SteamHelper.IsDLCOwned(SteamHelper.DLC.IndustryDLC) &
+                              OptionsWrapper<Options>.Options.EnableWarehouseAI)
+                        ? __instance.gameObject.AddComponent<CargoFerryWarehouseHarborAI>()
+                        : __instance.gameObject.AddComponent<CargoFerryHarborAI>();
+                    PrefabUtil.TryCopyAttributes(oldAi, ai, false);
                 }
 
-                var oldAi = __instance.GetComponent<CargoHarborAI>();
-                Object.DestroyImmediate(oldAi);
-                var ai = (SteamHelper.IsDLCOwned(SteamHelper.DLC.IndustryDLC) &
-                          OptionsWrapper<Options>.Options.EnableWarehouseAI)
-                    ? __instance.gameObject.AddComponent<CargoFerryWarehouseHarborAI>()
-                    : __instance.gameObject.AddComponent<CargoFerryHarborAI>();
-                PrefabUtil.TryCopyAttributes(oldAi, ai, false);
+                if (__instance?.m_class?.name == ItemClasses.cargoHelicopterFacility.name)
+                {
+                    var oldAi = __instance.GetComponent<DepotAI>();
+                    Object.DestroyImmediate(oldAi);
+                    var ai = __instance.gameObject.AddComponent<CargoHelicopterDepotAI>();
+                    PrefabUtil.TryCopyAttributes(oldAi, ai, false);
+                }
+
+                return true;
             }
             catch (Exception e)
             {

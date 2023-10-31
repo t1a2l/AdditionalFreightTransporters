@@ -7,30 +7,29 @@ using CargoFerries.Utils;
 using HarmonyLib;
 using UnityEngine;
 
-namespace CargoFerries.HarmonyPatches.FerryAIPatch
+namespace CargoFerries.HarmonyPatches.HelicopterAIPatch
 {
     internal static class SimulationStepPatch
     {
         public static void Apply()
         {
             PatchUtil.Patch(
-                new PatchUtil.MethodDefinition(typeof(FerryAI), nameof(FerryAI.SimulationStep),
-                    argumentTypes: new Type[] {typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3)}),
+                new PatchUtil.MethodDefinition(typeof(HelicopterAI), nameof(HelicopterAI.SimulationStep),
+                    argumentTypes: new Type[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3) }),
                 null, null,
                 new PatchUtil.MethodDefinition(typeof(SimulationStepPatch), (nameof(Transpile))));
         }
 
         public static void Undo()
         {
-            PatchUtil.Unpatch(new PatchUtil.MethodDefinition(typeof(FerryAI), nameof(FerryAI.SimulationStep),
-                argumentTypes: new Type[] {typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3)}));
-
+            PatchUtil.Unpatch(new PatchUtil.MethodDefinition(typeof(HelicopterAI), nameof(HelicopterAI.SimulationStep),
+                argumentTypes: new Type[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3) }));
         }
 
         private static IEnumerable<CodeInstruction> Transpile(MethodBase original,
             IEnumerable<CodeInstruction> instructions)
         {
-            Debug.Log("Barges: Transpiling method: " + original.DeclaringType + "." + original);
+            Debug.Log("CargoHelicopters: Transpiling method: " + original.DeclaringType + "." + original);
             var codes = new List<CodeInstruction>(instructions);
             var newCodes = new List<CodeInstruction>();
             foreach (var codeInstruction in codes)
@@ -41,20 +40,19 @@ namespace CargoFerries.HarmonyPatches.FerryAIPatch
                     continue;
                 }
 
-                var newInstruction = codeInstruction.operand.Equals(65796)
-                        ?new CodeInstruction(OpCodes.Ldc_I4,  
-                        (int)(Vehicle.Flags.Spawned | Vehicle.Flags.WaitingPath | Vehicle.Flags.WaitingSpace | Vehicle.Flags.WaitingCargo))
-                    {
-                        labels = codeInstruction.labels
-                    }
-                        :new CodeInstruction(OpCodes.Ldc_I4, (int)byte.MaxValue)
+                var newInstruction = codeInstruction.operand.Equals(65540)
+                        ? new CodeInstruction(OpCodes.Ldc_I4,
+                        (int)(Vehicle.Flags.Spawned | Vehicle.Flags.WaitingSpace | Vehicle.Flags.WaitingCargo))
+                        {
+                            labels = codeInstruction.labels
+                        }
+                        : new CodeInstruction(OpCodes.Ldc_I4, (int)byte.MaxValue)
                         {
                             labels = codeInstruction.labels
                         }
                     ;
                 newCodes.Add(newInstruction);
-                Debug.LogWarning(
-                    $"Barges: Replaced vehicle flags with {newInstruction.operand}");
+                Debug.LogWarning($"CargoHelicopters: Replaced vehicle flags with {newInstruction.operand}");
             }
 
             return newCodes.AsEnumerable();
@@ -62,9 +60,7 @@ namespace CargoFerries.HarmonyPatches.FerryAIPatch
 
         private static bool SkipInstruction(CodeInstruction codeInstruction)
         {
-            return codeInstruction.opcode != OpCodes.Ldc_I4 || codeInstruction.operand == null ||
-                   (!65796.Equals(codeInstruction.operand) && !150.Equals(codeInstruction.operand));
+            return codeInstruction.opcode != OpCodes.Ldc_I4 || codeInstruction.operand == null || !65540.Equals(codeInstruction.operand);
         }
-
     }
 }

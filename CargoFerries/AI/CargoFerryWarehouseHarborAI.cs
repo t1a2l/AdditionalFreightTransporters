@@ -1,7 +1,5 @@
-using System;
 using ColossalFramework;
 using ColossalFramework.DataBinding;
-using ColossalFramework.Math;
 using UnityEngine;
 
 namespace CargoFerries.AI

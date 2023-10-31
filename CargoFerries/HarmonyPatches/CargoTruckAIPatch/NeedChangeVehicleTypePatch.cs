@@ -7,18 +7,12 @@ namespace CargoFerries.HarmonyPatches.CargoTruckAIPatch
     {
         public static void Apply()
         {
-            PatchUtil.Patch(
-                new PatchUtil.MethodDefinition(typeof(CargoTruckAI), nameof(CargoTruckAI.NeedChangeVehicleType),
-                    BindingFlags.Public | BindingFlags.Static),
-                null, null,
-                new PatchUtil.MethodDefinition(typeof(VehicleTypeReplacingTranspiler), (nameof(VehicleTypeReplacingTranspiler.Transpile))));
+            PatchUtil.Patch(new PatchUtil.MethodDefinition(typeof(CargoTruckAI), nameof(CargoTruckAI.NeedChangeVehicleType), BindingFlags.Public | BindingFlags.Static), null, null, new PatchUtil.MethodDefinition(typeof(VehicleTypeReplacingTranspiler), nameof(VehicleTypeReplacingTranspiler.Transpile)));
         }
 
         public static void Undo()
         {
-            PatchUtil.Unpatch(new PatchUtil.MethodDefinition(typeof(CargoTruckAI),
-                nameof(CargoTruckAI.NeedChangeVehicleType),
-                BindingFlags.Public | BindingFlags.Static));
+            PatchUtil.Unpatch(new PatchUtil.MethodDefinition(typeof(CargoTruckAI), nameof(CargoTruckAI.NeedChangeVehicleType), BindingFlags.Public | BindingFlags.Static));
         }
 
 
