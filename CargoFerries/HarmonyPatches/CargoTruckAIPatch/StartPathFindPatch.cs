@@ -22,8 +22,10 @@ namespace CargoFerries.HarmonyPatches.CargoTruckAIPatch
                         typeof(bool),
                         typeof(bool)
                     }),
-                null, null,
-                new PatchUtil.MethodDefinition(typeof(VehicleTypeReplacingTranspiler), (nameof(VehicleTypeReplacingTranspiler.Transpile))));
+                    null,
+                    null,
+                    new PatchUtil.MethodDefinition(typeof(VehicleTypeReplacingTranspiler), nameof(VehicleTypeReplacingTranspiler.Transpile))
+                );
         }
 
         public static void Undo()
@@ -42,5 +44,7 @@ namespace CargoFerries.HarmonyPatches.CargoTruckAIPatch
                     typeof(bool)
                 }));
         }
+
     }
 }
+

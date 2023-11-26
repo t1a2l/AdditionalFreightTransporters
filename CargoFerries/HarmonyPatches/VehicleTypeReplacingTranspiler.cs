@@ -38,8 +38,8 @@ namespace CargoFerries.HarmonyPatches
 
         private static bool SkipInstruction(CodeInstruction codeInstruction)
         {
-            return codeInstruction.opcode != OpCodes.Ldc_I4_S || codeInstruction.operand == null ||
-                   !(((sbyte) 28).Equals(codeInstruction.operand) || ((sbyte) 29).Equals(codeInstruction.operand));
+            return codeInstruction.opcode != OpCodes.Ldc_I4_S || codeInstruction.operand == null || !(((sbyte) 28).Equals(codeInstruction.operand) || ((sbyte) 29).Equals(codeInstruction.operand));
         }
+
     }
 }

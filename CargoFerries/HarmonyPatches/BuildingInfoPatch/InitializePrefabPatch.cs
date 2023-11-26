@@ -44,7 +44,9 @@ namespace CargoFerries.HarmonyPatches.BuildingInfoPatch
         {
             try
             {
-                if (__instance?.m_class?.name == ItemClasses.cargoFerryFacility.name)
+                var Ai = __instance.GetComponent<PrefabAI>();
+
+                if (__instance?.m_class?.name == ItemClasses.cargoFerryFacility.name && Ai is CargoHarborAI)
                 {
                     var oldAi = __instance.GetComponent<CargoHarborAI>();
                     Object.DestroyImmediate(oldAi);
@@ -55,7 +57,7 @@ namespace CargoFerries.HarmonyPatches.BuildingInfoPatch
                     PrefabUtil.TryCopyAttributes(oldAi, ai, false);
                 }
 
-                if (__instance?.m_class?.name == ItemClasses.cargoHelicopterFacility.name)
+                if (__instance?.m_class?.name == ItemClasses.cargoHelicopterFacility.name && Ai is DepotAI)
                 {
                     var oldAi = __instance.GetComponent<DepotAI>();
                     Object.DestroyImmediate(oldAi);
