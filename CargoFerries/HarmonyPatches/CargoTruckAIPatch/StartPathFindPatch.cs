@@ -10,8 +10,8 @@ namespace CargoFerries.HarmonyPatches.CargoTruckAIPatch
         {
             PatchUtil.Patch(
                 new PatchUtil.MethodDefinition(typeof(CargoTruckAI), "StartPathFind",
-                    BindingFlags.Default, new[]
-                    {
+                    BindingFlags.Default,
+                    [
                         typeof(ushort),
                         typeof(Vehicle).MakeByRefType(),
                         typeof(Vector3),
@@ -21,7 +21,7 @@ namespace CargoFerries.HarmonyPatches.CargoTruckAIPatch
                         typeof(bool),
                         typeof(bool),
                         typeof(bool)
-                    }),
+                    ]),
                     null,
                     null,
                     new PatchUtil.MethodDefinition(typeof(VehicleTypeReplacingTranspiler), nameof(VehicleTypeReplacingTranspiler.Transpile))
@@ -31,8 +31,8 @@ namespace CargoFerries.HarmonyPatches.CargoTruckAIPatch
         public static void Undo()
         {
             PatchUtil.Unpatch(new PatchUtil.MethodDefinition(typeof(CargoTruckAI), "StartPathFind",
-                BindingFlags.Default, new[]
-                {
+                BindingFlags.Default,
+                [
                     typeof(ushort),
                     typeof(Vehicle).MakeByRefType(),
                     typeof(Vector3),
@@ -42,7 +42,7 @@ namespace CargoFerries.HarmonyPatches.CargoTruckAIPatch
                     typeof(bool),
                     typeof(bool),
                     typeof(bool)
-                }));
+                ]));
         }
 
     }
