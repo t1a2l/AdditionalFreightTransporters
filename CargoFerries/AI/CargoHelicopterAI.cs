@@ -11,7 +11,7 @@ namespace CargoFerries.AI
         [CustomizableProperty("Cargo capacity")]
         public int m_cargoCapacity = 1;
 
-        public TransportInfo m_transportInfo;
+        public new TransportInfo m_transportInfo;
 
         public override VehicleInfo.VehicleCategory vehicleCategory => VehicleInfo.VehicleCategory.CargoPlane;
 

@@ -24,7 +24,7 @@ namespace CargoFerries
             }
             HarmonyPatches.BuildingInfoPatch. InitializePrefabPatch.Apply();
             HarmonyPatches.FerryAIPatch.SimulationStepPatch.Apply();
-            HarmonyPatches.HelicopterAIPatch.SimulationStepPatch.Apply();
+            HarmonyPatches.PassengerHelicopterAIPatch.SimulationStepPatch.Apply();
             HarmonyPatches.VehicleInfoPatch.InitializePrefabPatch.Apply();
             HarmonyPatches.CargoTruckAIPatch.NeedChangeVehicleTypePatch.Apply();
             HarmonyPatches.CargoTruckAIPatch.StartPathFindPatch.Apply();
@@ -89,7 +89,7 @@ namespace CargoFerries
             }
             HarmonyPatches.BuildingInfoPatch.InitializePrefabPatch.Undo();
             HarmonyPatches.FerryAIPatch.SimulationStepPatch.Undo();
-            HarmonyPatches.HelicopterAIPatch.SimulationStepPatch.Undo();
+            HarmonyPatches.PassengerHelicopterAIPatch.SimulationStepPatch.Undo();
             HarmonyPatches.VehicleInfoPatch.InitializePrefabPatch.Undo();
             HarmonyPatches.CargoTruckAIPatch.NeedChangeVehicleTypePatch.Undo();
             HarmonyPatches.CargoTruckAIPatch.StartPathFindPatch.Undo();
