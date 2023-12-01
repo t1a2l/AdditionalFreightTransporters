@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CargoFerries.AI
 {
-    
+
     //based of CargoHarborAI but without animals, connections & checking height
     public class CargoFerryHarborAI : CargoStationAI
     {
@@ -22,8 +22,8 @@ namespace CargoFerries.AI
             }
             return station.Info.m_buildingAI is CargoFerryHarborAI;
         }
-        
-        
+
+
         public override void InitializePrefab()
         {
             base.InitializePrefab();
@@ -82,7 +82,7 @@ namespace CargoFerries.AI
         {
             if (this.m_info.m_placementMode != BuildingInfo.PlacementMode.Shoreline)
                 return base.GetWaterStructureCollisionRange(out min, out max);
-            min = 20f / Mathf.Max(22f, (float) this.m_info.m_cellLength * 8f);
+            min = 20f / Mathf.Max(22f, (float)this.m_info.m_cellLength * 8f);
             max = 1f;
             return true;
         }

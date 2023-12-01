@@ -46,8 +46,8 @@ namespace CargoFerries.AI
                 return;
             buildingData.m_finalExport = buildingData.m_tempExport;
             buildingData.m_finalImport = buildingData.m_tempImport;
-            buildingData.m_tempExport = (byte) 0;
-            buildingData.m_tempImport = (byte) 0;
+            buildingData.m_tempExport = (byte)0;
+            buildingData.m_tempImport = (byte)0;
         }
 
         public override void StartTransfer(
@@ -70,7 +70,7 @@ namespace CargoFerries.AI
                 else
                 {
                     transferVehicleService = WarehouseAI.GetTransferVehicleService(material,
-                        ItemClass.Level.Level1, ref Singleton<SimulationManager>.instance.m_randomizer);     
+                        ItemClass.Level.Level1, ref Singleton<SimulationManager>.instance.m_randomizer);
                 }
 
                 if (transferVehicleService == null)
@@ -81,25 +81,25 @@ namespace CargoFerries.AI
                     ref Singleton<SimulationManager>.instance.m_randomizer, transferVehicleService, data.m_position,
                     material, false, true))
                     return;
-                transferVehicleService.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[(int) vehicle], buildingID);
-                transferVehicleService.m_vehicleAI.StartTransfer(vehicle, ref vehicles.m_buffer[(int) vehicle],
+                transferVehicleService.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[(int)vehicle], buildingID);
+                transferVehicleService.m_vehicleAI.StartTransfer(vehicle, ref vehicles.m_buffer[(int)vehicle],
                     material, offer);
                 VehicleManager.instance.m_vehicles.m_buffer[vehicle].m_touristCount = 1; //to indicate that it's really own truck
                 ushort building = offer.Building;
-                if (building != (ushort) 0 &&
-                    (Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int) building].m_flags &
+                if (building != (ushort)0 &&
+                    (Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building].m_flags &
                      Building.Flags.IncomingOutgoing) != Building.Flags.None)
                 {
                     int size;
-                    transferVehicleService.m_vehicleAI.GetSize(vehicle, ref vehicles.m_buffer[(int) vehicle], out size,
+                    transferVehicleService.m_vehicleAI.GetSize(vehicle, ref vehicles.m_buffer[(int)vehicle], out size,
                         out int _);
                     CommonBuildingAI.ExportResource(buildingID, ref data, material, size);
                 }
 
-                data.m_outgoingProblemTimer = (byte) 0;
+                data.m_outgoingProblemTimer = (byte)0;
             }
         }
-        
+
         //patch me if you want to select vehicle per building / district
         private static VehicleInfo GetTransferVehicleService(ushort buildingID, ref Building data)
         {
@@ -116,9 +116,9 @@ namespace CargoFerries.AI
         {
             if (material == this.GetActualTransferReason(buildingID, ref data))
             {
-                int num = (int) data.m_customBuffer1 * 100;
+                int num = (int)data.m_customBuffer1 * 100;
                 amountDelta = Mathf.Clamp(amountDelta, -num, this.m_storageCapacity - num);
-                data.m_customBuffer1 = (ushort) ((num + amountDelta) / 100);
+                data.m_customBuffer1 = (ushort)((num + amountDelta) / 100);
             }
             else
                 base.ModifyMaterialBuffer(buildingID, ref data, material, ref amountDelta);
@@ -140,7 +140,7 @@ namespace CargoFerries.AI
 
         private void CheckCapacity(ushort buildingID, ref Building buildingData)
         {
-            int num = (int) buildingData.m_customBuffer1 * 100;
+            int num = (int)buildingData.m_customBuffer1 * 100;
             if (num * 3 >= this.m_storageCapacity * 2)
             {
                 if ((buildingData.m_flags & Building.Flags.CapacityFull) == Building.Flags.CapacityFull)
@@ -226,8 +226,8 @@ namespace CargoFerries.AI
         {
             DistrictManager instance = Singleton<DistrictManager>.instance;
             byte num1 = instance.GetPark(buildingData.m_position);
-            if (num1 != (byte) 0 && !instance.m_parks.m_buffer[(int) num1].IsIndustry)
-                num1 = (byte) 0;
+            if (num1 != (byte)0 && !instance.m_parks.m_buffer[(int)num1].IsIndustry)
+                num1 = (byte)0;
             if (finalProductionRate != 0)
             {
                 this.HandleDead(buildingID, ref buildingData, ref behaviour, totalWorkerCount);
@@ -239,7 +239,7 @@ namespace CargoFerries.AI
                     int maxLoadSize = this.GetMaxLoadSize();
                     bool flag1 = this.IsFull(buildingID, ref buildingData);
                     int num2 = finalProductionRate;
-                    int amount = (int) buildingData.m_customBuffer1 * 100;
+                    int amount = (int)buildingData.m_customBuffer1 * 100;
                     int num3 = (num2 * this.m_truckCount + 99) / 100;
                     int count1 = 0;
                     int cargo1 = 0;
@@ -248,7 +248,7 @@ namespace CargoFerries.AI
                     this.CalculateOwnVehicles(buildingID, ref buildingData, actualTransferReason, ref count1,
                         ref cargo1, ref capacity1, ref outside1);
                     buildingData.m_tempExport =
-                        (byte) Mathf.Clamp(outside1, (int) buildingData.m_tempExport, (int) byte.MaxValue);
+                        (byte)Mathf.Clamp(outside1, (int)buildingData.m_tempExport, (int)byte.MaxValue);
                     int count2 = 0;
                     int cargo2 = 0;
                     int capacity2 = 0;
@@ -256,9 +256,9 @@ namespace CargoFerries.AI
                     this.CalculateGuestVehicles(buildingID, ref buildingData, actualTransferReason, ref count2,
                         ref cargo2, ref capacity2, ref outside2);
                     buildingData.m_tempImport =
-                        (byte) Mathf.Clamp(outside2, (int) buildingData.m_tempImport, (int) byte.MaxValue);
-                    if (num1 != (byte) 0)
-                        instance.m_parks.m_buffer[(int) num1].AddBufferStatus(actualTransferReason, amount, cargo2,
+                        (byte)Mathf.Clamp(outside2, (int)buildingData.m_tempImport, (int)byte.MaxValue);
+                    if (num1 != (byte)0)
+                        instance.m_parks.m_buffer[(int)num1].AddBufferStatus(actualTransferReason, amount, cargo2,
                             this.m_storageCapacity);
                     if (transferReason != actualTransferReason)
                     {
@@ -326,7 +326,7 @@ namespace CargoFerries.AI
                     }
                 }
 
-                if (actualTransferReason != transferReason && buildingData.m_customBuffer1 == (ushort) 0)
+                if (actualTransferReason != transferReason && buildingData.m_customBuffer1 == (ushort)0)
                 {
                     buildingData.m_adults = buildingData.m_seniors;
                     this.SetContentFlags(buildingID, ref buildingData, transferReason);
@@ -355,9 +355,9 @@ namespace CargoFerries.AI
             int outside = 0;
             this.CalculateGuestVehicles(buildingID, ref data, actualTransferReason, ref count, ref cargo, ref capacity,
                 ref outside);
-            int num = (int) data.m_customBuffer1 * 100;
-            return StringUtils.SafeFormat("{0}\n{1}: {2} (+{3})", (object) base.GetDebugString(buildingID, ref data),
-                (object) actualTransferReason, (object) num, (object) cargo);
+            int num = (int)data.m_customBuffer1 * 100;
+            return StringUtils.SafeFormat("{0}\n{1}: {2} (+{3})", (object)base.GetDebugString(buildingID, ref data),
+                (object)actualTransferReason, (object)num, (object)cargo);
         }
 
         public override void SetEmptying(ushort buildingID, ref Building data, bool emptying)
@@ -425,7 +425,7 @@ namespace CargoFerries.AI
         {
             if (this.m_storageType != TransferManager.TransferReason.None)
                 return;
-            TransferManager.TransferReason seniors = (TransferManager.TransferReason) data.m_seniors;
+            TransferManager.TransferReason seniors = (TransferManager.TransferReason)data.m_seniors;
             if (material != seniors)
             {
                 if (seniors != TransferManager.TransferReason.None)
@@ -437,10 +437,10 @@ namespace CargoFerries.AI
                     this.CancelIncomingTransfer(buildingID, ref data, seniors);
                 }
 
-                data.m_seniors = (byte) material;
-                if (data.m_customBuffer1 == (ushort) 0)
+                data.m_seniors = (byte)material;
+                if (data.m_customBuffer1 == (ushort)0)
                 {
-                    data.m_adults = (byte) material;
+                    data.m_adults = (byte)material;
                     this.SetContentFlags(buildingID, ref data, material);
                 }
             }
@@ -722,16 +722,16 @@ namespace CargoFerries.AI
             VehicleManager instance = Singleton<VehicleManager>.instance;
             ushort vehicleID = data.m_guestVehicles;
             int num = 0;
-            while (vehicleID != (ushort) 0)
+            while (vehicleID != (ushort)0)
             {
-                ushort nextGuestVehicle = instance.m_vehicles.m_buffer[(int) vehicleID].m_nextGuestVehicle;
-                if ((TransferManager.TransferReason) instance.m_vehicles.m_buffer[(int) vehicleID].m_transferType ==
+                ushort nextGuestVehicle = instance.m_vehicles.m_buffer[(int)vehicleID].m_nextGuestVehicle;
+                if ((TransferManager.TransferReason)instance.m_vehicles.m_buffer[(int)vehicleID].m_transferType ==
                     material &&
-                    (instance.m_vehicles.m_buffer[(int) vehicleID].m_flags &
+                    (instance.m_vehicles.m_buffer[(int)vehicleID].m_flags &
                      (Vehicle.Flags.TransferToTarget | Vehicle.Flags.GoingBack)) == Vehicle.Flags.TransferToTarget &&
-                    (int) instance.m_vehicles.m_buffer[(int) vehicleID].m_targetBuilding == (int) buildingID)
-                    instance.m_vehicles.m_buffer[(int) vehicleID].Info.m_vehicleAI.SetTarget(vehicleID,
-                        ref instance.m_vehicles.m_buffer[(int) vehicleID], (ushort) 0);
+                    (int)instance.m_vehicles.m_buffer[(int)vehicleID].m_targetBuilding == (int)buildingID)
+                    instance.m_vehicles.m_buffer[(int)vehicleID].Info.m_vehicleAI.SetTarget(vehicleID,
+                        ref instance.m_vehicles.m_buffer[(int)vehicleID], (ushort)0);
                 vehicleID = nextGuestVehicle;
                 if (++num > CargoFerriesMod.MaxVehicleCount)
                 {
@@ -744,10 +744,10 @@ namespace CargoFerries.AI
 
 
         public override bool IsFull(ushort buildingID, ref Building data) =>
-            (int) data.m_customBuffer1 * 100 >= this.m_storageCapacity;
+            (int)data.m_customBuffer1 * 100 >= this.m_storageCapacity;
 
         public override bool CanBeRelocated(ushort buildingID, ref Building data) =>
-            (int) data.m_customBuffer1 * 100 == 0;
+            (int)data.m_customBuffer1 * 100 == 0;
 
         public TransferManager.TransferReason GetTransferReason(
             ushort buildingID,
@@ -755,7 +755,7 @@ namespace CargoFerries.AI
         {
             return this.m_storageType != TransferManager.TransferReason.None
                 ? this.m_storageType
-                : (TransferManager.TransferReason) data.m_seniors;
+                : (TransferManager.TransferReason)data.m_seniors;
         }
 
         public TransferManager.TransferReason GetActualTransferReason(
@@ -764,7 +764,7 @@ namespace CargoFerries.AI
         {
             return this.m_storageType != TransferManager.TransferReason.None
                 ? this.m_storageType
-                : (TransferManager.TransferReason) data.m_adults;
+                : (TransferManager.TransferReason)data.m_adults;
         }
 
         private int GetMaxLoadSize() => 8000;
@@ -772,12 +772,12 @@ namespace CargoFerries.AI
         public override string GetLocalizedTooltip()
         {
             string str1 =
-                LocaleFormatter.FormatGeneric("AIINFO_WATER_CONSUMPTION", (object) (this.GetWaterConsumption() * 16)) +
+                LocaleFormatter.FormatGeneric("AIINFO_WATER_CONSUMPTION", (object)(this.GetWaterConsumption() * 16)) +
                 System.Environment.NewLine + LocaleFormatter.FormatGeneric("AIINFO_ELECTRICITY_CONSUMPTION",
-                    (object) (this.GetElectricityConsumption() * 16));
-            string str2 = LocaleFormatter.FormatGeneric("AIINFO_CAPACITY", (object) this.m_storageCapacity) +
+                    (object)(this.GetElectricityConsumption() * 16));
+            string str2 = LocaleFormatter.FormatGeneric("AIINFO_CAPACITY", (object)this.m_storageCapacity) +
                           System.Environment.NewLine + LocaleFormatter.FormatGeneric("AIINFO_INDUSTRY_VEHICLE_COUNT",
-                              (object) this.m_truckCount);
+                              (object)this.m_truckCount);
             string baseTooltip = TooltipHelper.Append(base.GetLocalizedTooltip(),
                 TooltipHelper.Format(LocaleFormatter.Info1, str1, LocaleFormatter.Info2, str2));
             string addTooltip1 = TooltipHelper.Format("arrowVisible", "false", "input1Visible", "true", "input2Visible",
@@ -802,14 +802,14 @@ namespace CargoFerries.AI
                 int outside = 0;
                 this.CalculateOwnVehicles(buildingID, ref data, actualTransferReason, ref count, ref cargo,
                     ref capacity, ref outside);
-                int num2 = (int) data.m_customBuffer1 * 100;
+                int num2 = (int)data.m_customBuffer1 * 100;
                 int num3 = 0;
                 if (num2 != 0)
                     num3 = Mathf.Max(1, num2 * 100 / this.m_storageCapacity);
-                int num = (int) data.m_customBuffer1 * 100;
-                str = str + StringUtils.SafeFormat(ColossalFramework.Globalization.Locale.Get("INDUSTRYPANEL_BUFFERTOOLTIP"), (object) IndustryWorldInfoPanel.FormatResource((ulong) (uint) num), (object) IndustryWorldInfoPanel.FormatResourceWithUnit((uint) m_storageCapacity, actualTransferReason))
-                + " (" + LocaleFormatter.FormatGeneric("AIINFO_FULL", (object) num3) + ")" + System.Environment.NewLine +
-                      LocaleFormatter.FormatGeneric("AIINFO_INDUSTRY_VEHICLES", (object) count, (object) num1);
+                int num = (int)data.m_customBuffer1 * 100;
+                str = str + StringUtils.SafeFormat(ColossalFramework.Globalization.Locale.Get("INDUSTRYPANEL_BUFFERTOOLTIP"), (object)IndustryWorldInfoPanel.FormatResource((ulong)(uint)num), (object)IndustryWorldInfoPanel.FormatResourceWithUnit((uint)m_storageCapacity, actualTransferReason))
+                + " (" + LocaleFormatter.FormatGeneric("AIINFO_FULL", (object)num3) + ")" + System.Environment.NewLine +
+                      LocaleFormatter.FormatGeneric("AIINFO_INDUSTRY_VEHICLES", (object)count, (object)num1);
             }
 
             return str;
@@ -828,21 +828,21 @@ namespace CargoFerries.AI
             VehicleManager instance = Singleton<VehicleManager>.instance;
             ushort vehicleID = data.m_ownVehicles;
             int num = 0;
-            while (vehicleID != (ushort) 0)
+            while (vehicleID != (ushort)0)
             {
                 //added check for tourist count to distinguish between really own vehicles and transit vehicles
-                if ((TransferManager.TransferReason) instance.m_vehicles.m_buffer[(int) vehicleID].m_transferType ==
-                    material && instance.m_vehicles.m_buffer[(int) vehicleID].m_touristCount == 1)
+                if ((TransferManager.TransferReason)instance.m_vehicles.m_buffer[(int)vehicleID].m_transferType ==
+                    material && instance.m_vehicles.m_buffer[(int)vehicleID].m_touristCount == 1)
                 {
                     int size;
                     int max;
-                    instance.m_vehicles.m_buffer[(int) vehicleID].Info.m_vehicleAI.GetSize(vehicleID,
-                        ref instance.m_vehicles.m_buffer[(int) vehicleID], out size, out max);
+                    instance.m_vehicles.m_buffer[(int)vehicleID].Info.m_vehicleAI.GetSize(vehicleID,
+                        ref instance.m_vehicles.m_buffer[(int)vehicleID], out size, out max);
                     cargo += Mathf.Min(size, max);
                     capacity += max;
                     ++count;
                     if (
-                        (instance.m_vehicles.m_buffer[(int) vehicleID].m_flags &
+                        (instance.m_vehicles.m_buffer[(int)vehicleID].m_flags &
                          (Vehicle.Flags.Importing | Vehicle.Flags.Exporting)) != ~(Vehicle.Flags.Created |
                             Vehicle.Flags.Deleted | Vehicle.Flags.Spawned | Vehicle.Flags.Inverted |
                             Vehicle.Flags.TransferToTarget | Vehicle.Flags.TransferToSource | Vehicle.Flags.Emergency1 |
@@ -858,7 +858,7 @@ namespace CargoFerries.AI
                         ++outside;
                 }
 
-                vehicleID = instance.m_vehicles.m_buffer[(int) vehicleID].m_nextOwnVehicle;
+                vehicleID = instance.m_vehicles.m_buffer[(int)vehicleID].m_nextOwnVehicle;
                 if (++num > CargoFerriesMod.MaxVehicleCount)
                 {
                     CODebugBase<LogChannel>.Error(LogChannel.Core,

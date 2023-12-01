@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CargoFerries.AI
 {
-    
+
     //based of CargoHarborAI but without animals, connections & checking height
     public class CargoHelicopterDepotAI : CargoStationAI
     {
