@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -15,7 +14,7 @@ namespace CargoFerries.HarmonyPatches.FerryAIPatch
         {
             PatchUtil.Patch(
                 new PatchUtil.MethodDefinition(typeof(FerryAI), nameof(FerryAI.SimulationStep),
-                    argumentTypes: new Type[] {typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3)}),
+                    argumentTypes: [typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3)]),
                 null, null,
                 new PatchUtil.MethodDefinition(typeof(SimulationStepPatch), (nameof(Transpile))));
         }
@@ -23,8 +22,7 @@ namespace CargoFerries.HarmonyPatches.FerryAIPatch
         public static void Undo()
         {
             PatchUtil.Unpatch(new PatchUtil.MethodDefinition(typeof(FerryAI), nameof(FerryAI.SimulationStep),
-                argumentTypes: new Type[] {typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3)}));
-
+                argumentTypes: [typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3)]));
         }
 
         private static IEnumerable<CodeInstruction> Transpile(MethodBase original,
@@ -53,8 +51,7 @@ namespace CargoFerries.HarmonyPatches.FerryAIPatch
                         }
                     ;
                 newCodes.Add(newInstruction);
-                Debug.LogWarning(
-                    $"Barges: Replaced vehicle flags with {newInstruction.operand}");
+                Debug.LogWarning($"Barges: Replaced vehicle flags with {newInstruction.operand}");
             }
 
             return newCodes.AsEnumerable();
@@ -65,6 +62,5 @@ namespace CargoFerries.HarmonyPatches.FerryAIPatch
             return codeInstruction.opcode != OpCodes.Ldc_I4 || codeInstruction.operand == null ||
                    (!65796.Equals(codeInstruction.operand) && !150.Equals(codeInstruction.operand));
         }
-
     }
 }

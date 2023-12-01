@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,23 +6,23 @@ using CargoFerries.Utils;
 using HarmonyLib;
 using UnityEngine;
 
-namespace CargoFerries.HarmonyPatches.HelicopterAIPatch
+namespace CargoFerries.HarmonyPatches.PassengerHelicopterAIPatch
 {
     internal static class SimulationStepPatch
     {
         public static void Apply()
         {
             PatchUtil.Patch(
-                new PatchUtil.MethodDefinition(typeof(HelicopterAI), nameof(HelicopterAI.SimulationStep),
-                    argumentTypes: new Type[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3) }),
+                new PatchUtil.MethodDefinition(typeof(PassengerHelicopterAI), nameof(PassengerHelicopterAI.SimulationStep),
+                    argumentTypes: [typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3)]),
                 null, null,
                 new PatchUtil.MethodDefinition(typeof(SimulationStepPatch), (nameof(Transpile))));
         }
 
         public static void Undo()
         {
-            PatchUtil.Unpatch(new PatchUtil.MethodDefinition(typeof(HelicopterAI), nameof(HelicopterAI.SimulationStep),
-                argumentTypes: new Type[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3) }));
+            PatchUtil.Unpatch(new PatchUtil.MethodDefinition(typeof(PassengerHelicopterAI), nameof(PassengerHelicopterAI.SimulationStep),
+                argumentTypes: [typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3)]));
         }
 
         private static IEnumerable<CodeInstruction> Transpile(MethodBase original,
@@ -42,7 +41,7 @@ namespace CargoFerries.HarmonyPatches.HelicopterAIPatch
 
                 var newInstruction = codeInstruction.operand.Equals(65540)
                         ? new CodeInstruction(OpCodes.Ldc_I4,
-                        (int)(Vehicle.Flags.Spawned | Vehicle.Flags.WaitingSpace | Vehicle.Flags.WaitingCargo))
+                        (int)(Vehicle.Flags.Spawned | Vehicle.Flags.WaitingPath | Vehicle.Flags.WaitingSpace | Vehicle.Flags.WaitingCargo))
                         {
                             labels = codeInstruction.labels
                         }
@@ -60,7 +59,8 @@ namespace CargoFerries.HarmonyPatches.HelicopterAIPatch
 
         private static bool SkipInstruction(CodeInstruction codeInstruction)
         {
-            return codeInstruction.opcode != OpCodes.Ldc_I4 || codeInstruction.operand == null || !65540.Equals(codeInstruction.operand);
+            return codeInstruction.opcode != OpCodes.Ldc_I4 || codeInstruction.operand == null ||
+                  (!65796.Equals(codeInstruction.operand) && !150.Equals(codeInstruction.operand));
         }
     }
 }
