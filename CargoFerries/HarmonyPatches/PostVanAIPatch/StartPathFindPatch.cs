@@ -1,5 +1,7 @@
 using System.Reflection;
 using CargoFerries.Utils;
+using ColossalFramework;
+using HarmonyLib;
 using UnityEngine;
 
 namespace CargoFerries.HarmonyPatches.PostVanAIPatch
@@ -10,8 +12,8 @@ namespace CargoFerries.HarmonyPatches.PostVanAIPatch
         {
             PatchUtil.Patch(
                 new PatchUtil.MethodDefinition(typeof(PostVanAI), "StartPathFind",
-                    BindingFlags.Default, new[]
-                    {
+                    BindingFlags.Default,
+                    [
                         typeof(ushort),
                         typeof(Vehicle).MakeByRefType(),
                         typeof(Vector3),
@@ -19,16 +21,17 @@ namespace CargoFerries.HarmonyPatches.PostVanAIPatch
                         typeof(bool),
                         typeof(bool),
                         typeof(bool)
-                    }),
-                null, null,
+                    ]),
+                null, 
+                null,
                 new PatchUtil.MethodDefinition(typeof(VehicleTypeReplacingTranspiler), (nameof(VehicleTypeReplacingTranspiler.Transpile))));
         }
 
         public static void Undo()
         {
             PatchUtil.Unpatch(new PatchUtil.MethodDefinition(typeof(PostVanAI), "StartPathFind",
-                BindingFlags.Default, new[]
-                {
+                BindingFlags.Default,
+                [
                     typeof(ushort),
                     typeof(Vehicle).MakeByRefType(),
                     typeof(Vector3),
@@ -36,7 +39,7 @@ namespace CargoFerries.HarmonyPatches.PostVanAIPatch
                     typeof(bool),
                     typeof(bool),
                     typeof(bool)
-                }));
+                ]));
         }
     }
 }

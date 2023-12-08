@@ -85,12 +85,11 @@ namespace CargoFerries.HarmonyPatches.PathFindPatch
         {
             var vehicleTypes =  (VehicleInfo.VehicleType) vehicleTypesField.GetValue(pathFind);
             var laneTypes = (NetInfo.LaneType) laneTypesField.GetValue(pathFind);
-            return ((laneTypes & NetInfo.LaneType.CargoVehicle) == NetInfo.LaneType.None || BelongsToFerryNetwork(ref node))
-                   && DoVanillaCheck(vehicleTypes);
+            return ((laneTypes & NetInfo.LaneType.CargoVehicle) == NetInfo.LaneType.None || BelongsToFerryNetwork(ref node) || BelongsToHelicopterNetwork(ref node)) && DoVanillaCheck(vehicleTypes);
 
             static bool DoVanillaCheck(VehicleInfo.VehicleType vehicleType)
             {
-                return (vehicleType & (VehicleInfo.VehicleType.Ferry | VehicleInfo.VehicleType.Monorail)) != VehicleInfo.VehicleType.None;
+                return (vehicleType & (VehicleInfo.VehicleType.Ferry | VehicleInfo.VehicleType.Monorail | VehicleInfo.VehicleType.Helicopter)) != VehicleInfo.VehicleType.None;
             }
         }
 
@@ -110,6 +109,29 @@ namespace CargoFerries.HarmonyPatches.PathFindPatch
                 }
 
                 if ((segmentInfo.m_vehicleTypes & VehicleInfo.VehicleType.Ferry) == VehicleInfo.VehicleType.None)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static bool BelongsToHelicopterNetwork(ref NetNode node)
+        {
+            for (var index = 0; index < 8; ++index)
+            {
+                var segment = node.GetSegment(index);
+                if (segment == 0)
+                {
+                    continue;
+                }
+                var segmentInfo = NetManager.instance.m_segments.m_buffer[segment].Info;
+                if (segmentInfo == null)
+                {
+                    continue;
+                }
+
+                if ((segmentInfo.m_vehicleTypes & VehicleInfo.VehicleType.Helicopter) == VehicleInfo.VehicleType.None)
                 {
                     return false;
                 }

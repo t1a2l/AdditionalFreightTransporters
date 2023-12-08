@@ -10,8 +10,8 @@ namespace CargoFerries.HarmonyPatches.BankVanAIPatch
         {
             PatchUtil.Patch(
                 new PatchUtil.MethodDefinition(typeof(BankVanAI), "StartPathFind",
-                    BindingFlags.Default, new[]
-                    {
+                    BindingFlags.Default,
+                    [
                         typeof(ushort),
                         typeof(Vehicle).MakeByRefType(),
                         typeof(Vector3),
@@ -19,7 +19,7 @@ namespace CargoFerries.HarmonyPatches.BankVanAIPatch
                         typeof(bool),
                         typeof(bool),
                         typeof(bool)
-                    }),
+                    ]),
                 null, null,
                 new PatchUtil.MethodDefinition(typeof(VehicleTypeReplacingTranspiler), (nameof(VehicleTypeReplacingTranspiler.Transpile))));
         }
@@ -27,8 +27,8 @@ namespace CargoFerries.HarmonyPatches.BankVanAIPatch
         public static void Undo()
         {
             PatchUtil.Unpatch(new PatchUtil.MethodDefinition(typeof(BankVanAI), "StartPathFind",
-                BindingFlags.Default, new[]
-                {
+                BindingFlags.Default,
+                [
                     typeof(ushort),
                     typeof(Vehicle).MakeByRefType(),
                     typeof(Vector3),
@@ -36,7 +36,7 @@ namespace CargoFerries.HarmonyPatches.BankVanAIPatch
                     typeof(bool),
                     typeof(bool),
                     typeof(bool)
-                }));
+                ]));
         }
     }
 }
