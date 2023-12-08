@@ -40,12 +40,12 @@ namespace CargoFerries.HarmonyPatches.FerryAIPatch
                 }
 
                 var newInstruction = codeInstruction.operand.Equals(65796)
-                        ?new CodeInstruction(OpCodes.Ldc_I4,  
+                        ? new CodeInstruction(OpCodes.Ldc_I4,  
                         (int)(Vehicle.Flags.Spawned | Vehicle.Flags.WaitingPath | Vehicle.Flags.WaitingSpace | Vehicle.Flags.WaitingCargo))
-                    {
-                        labels = codeInstruction.labels
-                    }
-                        :new CodeInstruction(OpCodes.Ldc_I4, (int)byte.MaxValue)
+                        {
+                            labels = codeInstruction.labels
+                        }
+                        : new CodeInstruction(OpCodes.Ldc_I4, (int)byte.MaxValue)
                         {
                             labels = codeInstruction.labels
                         }
