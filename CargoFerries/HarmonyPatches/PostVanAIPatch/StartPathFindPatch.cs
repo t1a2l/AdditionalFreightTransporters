@@ -1,7 +1,5 @@
 using System.Reflection;
 using CargoFerries.Utils;
-using ColossalFramework;
-using HarmonyLib;
 using UnityEngine;
 
 namespace CargoFerries.HarmonyPatches.PostVanAIPatch

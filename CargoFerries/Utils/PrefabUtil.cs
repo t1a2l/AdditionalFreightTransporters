@@ -8,10 +8,8 @@ namespace CargoFerries.Utils
     {
         public static void TryCopyAttributes(PrefabAI src, PrefabAI dst, bool safe = true)
         {
-            var oldAIFields = src.GetType()
-                .GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
-            var newAIFields = dst.GetType()
-                .GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            var oldAIFields = src.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            var newAIFields = dst.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
 
             var newAIFieldDic = new Dictionary<string, FieldInfo>(newAIFields.Length);
             foreach (var field in newAIFields)
@@ -28,8 +26,7 @@ namespace CargoFerries.Utils
 
                 if (copyField)
                 {
-                    FieldInfo newAIField;
-                    newAIFieldDic.TryGetValue(fieldInfo.Name, out newAIField);
+                    newAIFieldDic.TryGetValue(fieldInfo.Name, out FieldInfo newAIField);
                     try
                     {
                         if (newAIField != null && newAIField.GetType().Equals(fieldInfo.GetType()))
