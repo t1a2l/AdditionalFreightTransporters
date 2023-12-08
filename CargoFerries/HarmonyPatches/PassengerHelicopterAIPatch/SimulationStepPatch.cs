@@ -60,7 +60,7 @@ namespace CargoFerries.HarmonyPatches.PassengerHelicopterAIPatch
         private static bool SkipInstruction(CodeInstruction codeInstruction)
         {
             return codeInstruction.opcode != OpCodes.Ldc_I4 || codeInstruction.operand == null ||
-                  (!65796.Equals(codeInstruction.operand) && !150.Equals(codeInstruction.operand));
+                   (!65796.Equals(codeInstruction.operand) && !150.Equals(codeInstruction.operand));
         }
     }
 }
