@@ -21,7 +21,7 @@ namespace CargoFerries.HarmonyPatches.BankVanAIPatch
                         typeof(bool)
                     ]),
                 null, null,
-                new PatchUtil.MethodDefinition(typeof(VehicleTypeReplacingTranspiler), (nameof(VehicleTypeReplacingTranspiler.Transpile))));
+                new PatchUtil.MethodDefinition(typeof(VehicleTypeReplacingTranspiler), nameof(VehicleTypeReplacingTranspiler.Transpile)));
         }
 
         public static void Undo()

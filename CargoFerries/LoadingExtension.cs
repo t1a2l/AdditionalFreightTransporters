@@ -22,7 +22,7 @@ namespace CargoFerries
             {
                 return;
             }
-            HarmonyPatches.BuildingInfoPatch. InitializePrefabPatch.Apply();
+            HarmonyPatches.BuildingInfoPatch.InitializePrefabPatch.Apply();
             HarmonyPatches.FerryAIPatch.SimulationStepPatch.Apply();
             HarmonyPatches.PassengerHelicopterAIPatch.SimulationStepPatch.Apply();
             HarmonyPatches.VehicleInfoPatch.InitializePrefabPatch.Apply();

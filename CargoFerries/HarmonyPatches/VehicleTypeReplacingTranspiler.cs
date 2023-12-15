@@ -9,8 +9,7 @@ namespace CargoFerries.HarmonyPatches
 {
     internal static class VehicleTypeReplacingTranspiler
     {
-        public static IEnumerable<CodeInstruction> Transpile(MethodBase original,
-            IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> Transpile(MethodBase original, IEnumerable<CodeInstruction> instructions)
         {
             Debug.Log("Barges: VehicleTypeReplacingTranspiler - Transpiling method: " + original.DeclaringType + "." + original);
             var codes = new List<CodeInstruction>(instructions);
