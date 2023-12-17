@@ -5,7 +5,8 @@ using System;
 
 namespace AdditionalFreightTransporters.HarmonyPatches
 {
-    [HarmonyPatch(typeof(VehicleAI), "GetColor")]
+    [HarmonyPatch(typeof(VehicleAI), "GetColor", [typeof(ushort), typeof(Vehicle), typeof(InfoManager.InfoMode), typeof(InfoManager.SubInfoMode)],
+                [ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal])]
     internal static class VehicleAIPatch
     {
         [HarmonyReversePatch]

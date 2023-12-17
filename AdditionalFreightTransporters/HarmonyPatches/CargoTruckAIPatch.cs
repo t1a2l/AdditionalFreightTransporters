@@ -14,7 +14,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
     {
         [HarmonyPatch(typeof(CargoTruckAI), "NeedChangeVehicleType",
                 [typeof(VehicleInfo), typeof(ushort), typeof(Vehicle), typeof(PathUnit.Position), typeof(uint), typeof(VehicleInfo.VehicleType), typeof(Vector4)],
-                [ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal])]
+                [ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Ref])]
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> NeedChangeVehicleTypeTranspile(MethodBase original, IEnumerable<CodeInstruction> instructions)
         {

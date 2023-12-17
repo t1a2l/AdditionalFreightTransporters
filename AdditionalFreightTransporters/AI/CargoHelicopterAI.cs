@@ -10,7 +10,10 @@ namespace AdditionalFreightTransporters.AI
         [CustomizableProperty("Cargo capacity")]
         public int m_cargoCapacity = 1;
 
-        public new TransportInfo m_transportInfo;
+        public CargoHelicopterAI()
+        {
+            m_passengerCapacity = 0;
+        }
 
         public override VehicleInfo.VehicleCategory vehicleCategory => VehicleInfo.VehicleCategory.CargoPlane;
 
@@ -152,7 +155,6 @@ namespace AdditionalFreightTransporters.AI
                 this.SetTarget(vehicleID, ref data, (ushort)0);
             base.SimulationStep(vehicleID, ref data, physicsLodRefPos);
         }
-
 
         public override void UpdateBuildingTargetPositions(
           ushort vehicleID,
@@ -372,7 +374,7 @@ namespace AdditionalFreightTransporters.AI
             if ((data.m_flags & Vehicle.Flags.WaitingCargo) != ~(Vehicle.Flags.Created | Vehicle.Flags.Deleted | Vehicle.Flags.Spawned | Vehicle.Flags.Inverted | Vehicle.Flags.TransferToTarget | Vehicle.Flags.TransferToSource | Vehicle.Flags.Emergency1 | Vehicle.Flags.Emergency2 | Vehicle.Flags.WaitingPath | Vehicle.Flags.Stopped | Vehicle.Flags.Leaving | Vehicle.Flags.Arriving | Vehicle.Flags.Reversed | Vehicle.Flags.TakingOff | Vehicle.Flags.Flying | Vehicle.Flags.Landing | Vehicle.Flags.WaitingSpace | Vehicle.Flags.WaitingCargo | Vehicle.Flags.GoingBack | Vehicle.Flags.WaitingTarget | Vehicle.Flags.Importing | Vehicle.Flags.Exporting | Vehicle.Flags.Parking | Vehicle.Flags.CustomName | Vehicle.Flags.OnGravel | Vehicle.Flags.WaitingLoading | Vehicle.Flags.Congestion | Vehicle.Flags.DummyTraffic | Vehicle.Flags.Underground | Vehicle.Flags.Transition | Vehicle.Flags.InsideBuilding | Vehicle.Flags.LeftHandDrive))
             {
                 target = InstanceID.Empty;
-                return ColossalFramework.Globalization.Locale.Get("VEHICLE_STATUS_CARGOPLANE_LOADING");
+                return ColossalFramework.Globalization.Locale.Get("VEHICLE_STATUS_CARGOSHIP_LOADING");
             }
             if ((data.m_flags & Vehicle.Flags.GoingBack) != ~(Vehicle.Flags.Created | Vehicle.Flags.Deleted | Vehicle.Flags.Spawned | Vehicle.Flags.Inverted | Vehicle.Flags.TransferToTarget | Vehicle.Flags.TransferToSource | Vehicle.Flags.Emergency1 | Vehicle.Flags.Emergency2 | Vehicle.Flags.WaitingPath | Vehicle.Flags.Stopped | Vehicle.Flags.Leaving | Vehicle.Flags.Arriving | Vehicle.Flags.Reversed | Vehicle.Flags.TakingOff | Vehicle.Flags.Flying | Vehicle.Flags.Landing | Vehicle.Flags.WaitingSpace | Vehicle.Flags.WaitingCargo | Vehicle.Flags.GoingBack | Vehicle.Flags.WaitingTarget | Vehicle.Flags.Importing | Vehicle.Flags.Exporting | Vehicle.Flags.Parking | Vehicle.Flags.CustomName | Vehicle.Flags.OnGravel | Vehicle.Flags.WaitingLoading | Vehicle.Flags.Congestion | Vehicle.Flags.DummyTraffic | Vehicle.Flags.Underground | Vehicle.Flags.Transition | Vehicle.Flags.InsideBuilding | Vehicle.Flags.LeftHandDrive))
             {
@@ -383,7 +385,7 @@ namespace AdditionalFreightTransporters.AI
             {
                 target = InstanceID.Empty;
                 target.Building = data.m_targetBuilding;
-                return ColossalFramework.Globalization.Locale.Get("VEHICLE_STATUS_CARGOPLANE_TRANSPORT");
+                return ColossalFramework.Globalization.Locale.Get("VEHICLE_STATUS_CARGOSHIP_TRANSPORT");
             }
             target = InstanceID.Empty;
             return ColossalFramework.Globalization.Locale.Get("VEHICLE_STATUS_CONFUSED");
@@ -395,7 +397,7 @@ namespace AdditionalFreightTransporters.AI
           out InstanceID target)
         {
             target = InstanceID.Empty;
-            return ColossalFramework.Globalization.Locale.Get("VEHICLE_STATUS_CARGOPLANE_LOADING");
+            return ColossalFramework.Globalization.Locale.Get("VEHICLE_STATUS_CARGOSHIP_LOADING");
         }
 
         public override void GetBufferStatus(
