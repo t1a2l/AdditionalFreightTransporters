@@ -1,0 +1,23 @@
+﻿using AdditionalFreightTransporters.OptionsFramework.Extensions;
+using CitiesHarmony.API;
+using ICities;
+
+namespace AdditionalFreightTransporters
+{
+    public class AdditionalFreightTransportersMod : IUserMod
+    {
+        public static int MaxVehicleCount;
+        
+        public string Name => "Barges";
+        public string Description => "Adds a new type of cargo transport - Barges. They are like cargo ships but use ferry paths & canals";
+        
+        public void OnSettingsUI(UIHelperBase helper)
+        {
+            helper.AddOptionsGroup<Options>();
+        }
+        
+        public void OnEnabled() {
+            HarmonyHelper.EnsureHarmonyInstalled();
+        }
+    }
+}

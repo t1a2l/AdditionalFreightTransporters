@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net35</TargetFramework>
+		<Deterministic>false</Deterministic>
+		<AssemblyTitle>AdditionalFreightTransporters</AssemblyTitle>
+		<AssemblyVersion>1.0.*</AssemblyVersion>
+		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+		<LangVersion>preview</LangVersion>
+		<AssemblyName>AdditionalFreightTransporters</AssemblyName>
+	</PropertyGroup>
+	<PropertyGroup>
+		<SteamPath>C:/Games/Steam</SteamPath>
+		<SteamPath Condition="! Exists ('$(SteamPath)')">~/Library/Application Support/Steam/</SteamPath>
+		<SteamPath Condition="! Exists ('$(SteamPath)')">$(ProgramFiles)/Steam</SteamPath>
+		<CSPath>$(SteamPath)/steamapps/common/Cities_Skylines</CSPath>
+		<ManagedDLLPath Condition="!  Exists ('$(ManagedDLLPath)')">$(CSPath)/Cities_Data/Managed</ManagedDLLPath>
+		<AssemblySearchPaths>
+			$(AssemblySearchPaths);
+			$(ManagedDLLPath);
+		</AssemblySearchPaths>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+	<Target Name="DeployToModDirectory" AfterTargets="Build">
+		<PropertyGroup>
+			<ModDirectory>$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\</ModDirectory>
+		</PropertyGroup>
+		<ItemGroup>
+			<ModFiles Include="$(TargetDir)*.*" />
+		</ItemGroup>
+		<RemoveDir Directories="$(ModDirectory)" />
+		<Copy SourceFiles="@(ModFiles)" DestinationFolder="$(ModDirectory)" />
+	</Target>
+	<ItemGroup>
+	  <PackageReference Include="CitiesHarmony.API" Version="2.2.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="Assembly-CSharp">
+	    <HintPath>..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
+	    <Private>False</Private>
+	  </Reference>
+	  <Reference Include="ColossalManaged">
+	    <HintPath>..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
+	    <Private>False</Private>
+	  </Reference>
+	  <Reference Include="ICities">
+	    <HintPath>..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
+	    <Private>False</Private>
+	  </Reference>
+	  <Reference Include="UnityEngine">
+	    <HintPath>..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Update="mscorlib">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Update="System">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+</Project>
