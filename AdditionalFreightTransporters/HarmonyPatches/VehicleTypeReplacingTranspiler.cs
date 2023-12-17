@@ -22,8 +22,8 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                     continue;
                 }
                 var newInstruction = new CodeInstruction(OpCodes.Ldc_I4,  ((sbyte)28).Equals(codeInstruction.operand)
-                        ? (int)(VehicleInfo.VehicleType.Train | VehicleInfo.VehicleType.Ship | VehicleInfo.VehicleType.Plane | VehicleInfo.VehicleType.Ferry | VehicleInfo.VehicleType.Helicopter) 
-                        : (int)(VehicleInfo.VehicleType.Train | VehicleInfo.VehicleType.Ship | VehicleInfo.VehicleType.Plane | VehicleInfo.VehicleType.Ferry | VehicleInfo.VehicleType.Helicopter | VehicleInfo.VehicleType.Car))
+                        ? (int)(VehicleInfo.VehicleType.Train | VehicleInfo.VehicleType.Ship | VehicleInfo.VehicleType.Plane | VehicleInfo.VehicleType.Ferry | VehicleInfo.VehicleType.Helicopter | VehicleInfo.VehicleType.Tram) 
+                        : (int)(VehicleInfo.VehicleType.Train | VehicleInfo.VehicleType.Ship | VehicleInfo.VehicleType.Plane | VehicleInfo.VehicleType.Ferry | VehicleInfo.VehicleType.Helicopter | VehicleInfo.VehicleType.Tram  | VehicleInfo.VehicleType.Car))
                     {
                         labels = codeInstruction.labels
                     }

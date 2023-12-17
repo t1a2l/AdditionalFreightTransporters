@@ -19,8 +19,8 @@ namespace AdditionalFreightTransporters
         
         [HideWhenNotInAssetEditorCondition]
         [XmlIgnore]
-        [Button("To barge", null, 
-            nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToBarge))]
+        [Button("To barge vehicle", null, 
+            nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToBargeVehicle))]
         public object ToBargeButton { get; set; } = null;
 
         [HideWhenNotInAssetEditorCondition]

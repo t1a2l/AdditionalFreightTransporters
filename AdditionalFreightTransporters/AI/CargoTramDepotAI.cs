@@ -5,11 +5,11 @@ namespace AdditionalFreightTransporters.AI
 {
 
     //based of CargoStationAI but without animals, connections & checking height
-    public class CargoHelicopterDepotAI : CargoStationAI
+    public class CargoTramDepotAI : CargoStationAI
     {
         [NonSerialized] protected float m_quayOffset;
 
-        public static bool IsCargoHelicopterDepot(Building station)
+        public static bool IsCargoTramDepot(Building station)
         {
             if (station.m_flags == Building.Flags.None)
             {
@@ -19,7 +19,7 @@ namespace AdditionalFreightTransporters.AI
             {
                 return false;
             }
-            return station.Info.m_buildingAI is CargoHelicopterDepotAI;
+            return station.Info.m_buildingAI is CargoTramDepotAI;
         }
 
         public override void InitializePrefab()

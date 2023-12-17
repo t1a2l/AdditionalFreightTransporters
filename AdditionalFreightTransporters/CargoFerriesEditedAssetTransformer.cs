@@ -17,7 +17,7 @@ namespace AdditionalFreightTransporters
             cargoHarborAI.m_transportInfo = PrefabCollection<TransportInfo>.FindLoaded("Ferry");
         }
 
-        public static void ToBarge() {
+        public static void ToBargeVehicle() {
             var vehicleInfo = ToolsModifierControl.toolController?.m_editPrefabInfo as VehicleInfo;
             if (vehicleInfo?.m_vehicleAI is not CargoShipAI cargoShipAI)
             {
