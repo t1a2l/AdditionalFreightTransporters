@@ -37,6 +37,14 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                     PrefabUtil.TryCopyAttributes(oldAi, ai, false);
                 }
 
+                if (__instance?.m_class?.name == ItemClasses.cargoTramFacility.name && Ai is DepotAI)
+                {
+                    var oldAi = __instance.GetComponent<DepotAI>();
+                    Object.DestroyImmediate(oldAi);
+                    var ai = __instance.gameObject.AddComponent<CargoTramDepotAI>();
+                    PrefabUtil.TryCopyAttributes(oldAi, ai, false);
+                }
+
                 return true;
             }
             catch (Exception e)
