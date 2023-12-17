@@ -12,21 +12,27 @@ namespace AdditionalFreightTransporters.HarmonyPatches
     [HarmonyPatch(typeof(CargoTruckAI))]
     internal static class CargoTruckAIPatch
     {
-        [HarmonyPatch(typeof(CargoTruckAI), "NeedChangeVehicleType")]
+        [HarmonyPatch(typeof(CargoTruckAI), "NeedChangeVehicleType",
+                [typeof(VehicleInfo), typeof(ushort), typeof(Vehicle), typeof(PathUnit.Position), typeof(uint), typeof(VehicleInfo.VehicleType), typeof(Vector4)],
+                [ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal])]
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> NeedChangeVehicleTypeTranspile(MethodBase original, IEnumerable<CodeInstruction> instructions)
         {
             return VehicleTypeReplacingTranspiler.Transpile(original, instructions);
         }
 
-        [HarmonyPatch(typeof(CargoTruckAI), "StartPathFind")]
+        [HarmonyPatch(typeof(CargoTruckAI), "StartPathFind",
+                [typeof(ushort), typeof(Vehicle), typeof(Vector3), typeof(Vector3), typeof(bool), typeof(bool), typeof(bool), typeof(bool), typeof(bool)],
+                [ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal])]
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> StartPathFindTranspile(MethodBase original, IEnumerable<CodeInstruction> instructions)
         {
             return VehicleTypeReplacingTranspiler.Transpile(original, instructions);
         }
 
-        [HarmonyPatch(typeof(CargoTruckAI), "ChangeVehicleType")]
+        [HarmonyPatch(typeof(CargoTruckAI), "ChangeVehicleType",
+                [typeof(VehicleInfo), typeof(ushort), typeof(Vehicle), typeof(PathUnit.Position), typeof(uint)],
+                [ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal])]
         [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> ChangeVehicleTypeTranspile(MethodBase original, IEnumerable<CodeInstruction> instructions)
         {
