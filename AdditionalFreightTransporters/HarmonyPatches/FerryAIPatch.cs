@@ -17,7 +17,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
         private static IEnumerable<CodeInstruction> Transpile(MethodBase original,
             IEnumerable<CodeInstruction> instructions)
         {
-            Debug.Log("Barges: Transpiling method: " + original.DeclaringType + "." + original);
+            Debug.Log("AdditionalFreightTransporters: Transpiling method: " + original.DeclaringType + "." + original);
             var codes = new List<CodeInstruction>(instructions);
             var newCodes = new List<CodeInstruction>();
             foreach (var codeInstruction in codes)
@@ -40,7 +40,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                         }
                     ;
                 newCodes.Add(newInstruction);
-                Debug.LogWarning($"Barges: Replaced vehicle flags with {newInstruction.operand}");
+                Debug.LogWarning($"AdditionalFreightTransporters: Replaced vehicle flags with {newInstruction.operand}");
             }
 
             return newCodes.AsEnumerable();

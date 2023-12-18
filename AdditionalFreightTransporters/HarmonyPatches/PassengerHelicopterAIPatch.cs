@@ -10,9 +10,9 @@ namespace AdditionalFreightTransporters.HarmonyPatches
     [HarmonyPatch(typeof(PassengerHelicopterAI))]
     internal static class PassengerHelicopterAIPatch
     {
-        [HarmonyPatch(typeof(PassengerHelicopterAI), "StartPathFind",
-                [typeof(ushort), typeof(Vehicle), typeof(Vector3), typeof(Vector3), typeof(bool), typeof(bool), typeof(bool)],
-                [ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal])]
+        [HarmonyPatch(typeof(PassengerHelicopterAI), "SimulationStep",
+                [typeof(ushort), typeof(Vehicle), typeof(Vector3)],
+                [ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal])]
         [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> Transpile(MethodBase original,
             IEnumerable<CodeInstruction> instructions)
@@ -28,7 +28,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                     continue;
                 }
 
-                var newInstruction = codeInstruction.operand.Equals(65540)
+                var newInstruction = codeInstruction.operand.Equals(65796)
                         ? new CodeInstruction(OpCodes.Ldc_I4,
                         (int)(Vehicle.Flags.Spawned | Vehicle.Flags.WaitingPath | Vehicle.Flags.WaitingSpace | Vehicle.Flags.WaitingCargo))
                         {
@@ -40,7 +40,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                         }
                     ;
                 newCodes.Add(newInstruction);
-                Debug.LogWarning($"CargoHelicopters: Replaced vehicle flags with {newInstruction.operand}");
+                Debug.LogWarning($"AdditionalFreightTransporters: Replaced vehicle flags with {newInstruction.operand}");
             }
 
             return newCodes.AsEnumerable();
