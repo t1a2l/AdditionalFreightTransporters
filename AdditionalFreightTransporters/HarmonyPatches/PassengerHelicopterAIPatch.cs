@@ -10,18 +10,6 @@ namespace AdditionalFreightTransporters.HarmonyPatches
     [HarmonyPatch(typeof(PassengerHelicopterAI))]
     internal static class PassengerHelicopterAIPatch
     {
-        [HarmonyPatch(typeof(PassengerHelicopterAI), "GetColor")]
-        [HarmonyPrefix]
-        public static bool PreGetColor(PassengerHelicopterAI __instance, ushort vehicleID, ref Vehicle data, InfoManager.InfoMode infoMode, InfoManager.SubInfoMode subInfoMode, ref Color __result)
-        {
-            if (data.Info.vehicleCategory == VehicleInfo.VehicleCategory.CargoPlane)
-            {
-                __result = VehicleAIPatch.GetColor(__instance, vehicleID, ref data, infoMode, subInfoMode);
-                return false;
-            }
-            return true;
-        }
-
         [HarmonyPatch(typeof(PassengerHelicopterAI), "StartPathFind",
                 [typeof(ushort), typeof(Vehicle), typeof(Vector3), typeof(Vector3), typeof(bool), typeof(bool), typeof(bool)],
                 [ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Normal])]

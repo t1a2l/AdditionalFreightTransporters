@@ -363,7 +363,18 @@ namespace AdditionalFreightTransporters.AI
                     }
                     break;
             }
-            return base.GetColor(vehicleID, ref data, infoMode, subInfoMode);
+            if (m_info.m_useColorVariations)
+            {
+                return new Randomizer(vehicleID).Int32(4u) switch
+                {
+                    0 => m_info.m_color0,
+                    1 => m_info.m_color1,
+                    2 => m_info.m_color2,
+                    3 => m_info.m_color3,
+                    _ => m_info.m_color0,
+                };
+            }
+            return m_info.m_color0;
         }
 
         public override string GetLocalizedStatus(
