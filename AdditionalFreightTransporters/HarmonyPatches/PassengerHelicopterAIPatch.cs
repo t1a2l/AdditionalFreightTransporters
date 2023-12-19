@@ -51,5 +51,22 @@ namespace AdditionalFreightTransporters.HarmonyPatches
             return codeInstruction.opcode != OpCodes.Ldc_I4 || codeInstruction.operand == null ||
                    (!65796.Equals(codeInstruction.operand) && !150.Equals(codeInstruction.operand));
         }
+
+
+        [HarmonyPatch(typeof(PassengerHelicopterAI), "SimulationStep",
+                [typeof(ushort), typeof(Vehicle), typeof(Vehicle.Frame), typeof(ushort), typeof(Vehicle), typeof(int)],
+                [ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal])]
+        [HarmonyPrefix]
+        public static bool SimulationStep(PassengerHelicopterAI __instance, ushort vehicleID, ref Vehicle vehicleData, ref Vehicle.Frame frameData, ushort leaderID, ref Vehicle leaderData, int lodPhysics)
+        {
+            if(vehicleData.Info.vehicleCategory == VehicleInfo.VehicleCategory.CargoPlane)
+            {
+                __instance.SimulationStepImpl(vehicleID, ref vehicleData, ref frameData, leaderID, ref leaderData, lodPhysics);
+                return false;
+            }
+            return true;
+        }
+
+
     }
 }

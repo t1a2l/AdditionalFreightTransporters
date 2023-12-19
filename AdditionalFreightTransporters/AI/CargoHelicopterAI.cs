@@ -19,7 +19,6 @@ namespace AdditionalFreightTransporters.AI
 
         public override void CreateVehicle(ushort vehicleID, ref Vehicle data)
         {
-            base.CreateVehicle(vehicleID, ref data);
             data.m_flags |= Vehicle.Flags.WaitingTarget;
             data.m_flags |= Vehicle.Flags.WaitingCargo;
             data.m_flags |= Vehicle.Flags.WaitingLoading;
@@ -28,7 +27,21 @@ namespace AdditionalFreightTransporters.AI
 
         public override void LoadVehicle(ushort vehicleID, ref Vehicle data)
         {
-            base.LoadVehicle(vehicleID, ref data);
+            FrameDataUpdated(vehicleID, ref data, ref data.m_frame0);
+            if ((data.m_flags & Vehicle.Flags.Flying) != 0)
+            {
+                data.m_frame0.m_swayVelocity.y = 5f;
+                data.m_frame1.m_swayVelocity.y = 5f;
+                data.m_frame2.m_swayVelocity.y = 5f;
+                data.m_frame3.m_swayVelocity.y = 5f;
+            }
+            else
+            {
+                data.m_frame0.m_swayVelocity.y = 0f;
+                data.m_frame1.m_swayVelocity.y = 0f;
+                data.m_frame2.m_swayVelocity.y = 0f;
+                data.m_frame3.m_swayVelocity.y = 0f;
+            }
             LoadVehicle_HelicopterAI(vehicleID, ref data);
             if (data.m_sourceBuilding != 0)
             {
@@ -164,7 +177,8 @@ namespace AdditionalFreightTransporters.AI
             }
             else if ((data.m_flags & Vehicle.Flags.Stopped) != 0)
             {
-                if ((data.m_flags & Vehicle.Flags.Spawned) != 0 && ++data.m_waitCounter == 16)
+                data.m_waitCounter++;
+                if ((data.m_flags & Vehicle.Flags.Spawned) != 0 && data.m_waitCounter == 16)
                 {
                     data.m_flags &= ~(Vehicle.Flags.Stopped | Vehicle.Flags.WaitingLoading);
                     data.m_flags |= Vehicle.Flags.Leaving;
@@ -194,7 +208,6 @@ namespace AdditionalFreightTransporters.AI
         {
             RemoveSource(vehicleID, ref data);
             RemoveTarget(vehicleID, ref data);
-            base.ReleaseVehicle(vehicleID, ref data);
         }
 
         private void RemoveSource(ushort vehicleID, ref Vehicle data)
@@ -350,7 +363,6 @@ namespace AdditionalFreightTransporters.AI
 
         public override void BuildingRelocated(ushort vehicleID, ref Vehicle data, ushort building)
         {
-            base.BuildingRelocated(vehicleID, ref data, building);
             if (building == data.m_sourceBuilding)
             {
                 if ((data.m_flags & Vehicle.Flags.GoingBack) == 0)
