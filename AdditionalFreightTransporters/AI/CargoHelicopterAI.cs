@@ -180,7 +180,7 @@ namespace AdditionalFreightTransporters.AI
                 data.m_waitCounter++;
                 if ((data.m_flags & Vehicle.Flags.Spawned) != 0 && data.m_waitCounter == 16)
                 {
-                    data.m_flags &= ~(Vehicle.Flags.Stopped | Vehicle.Flags.WaitingLoading);
+                    data.m_flags &= ~(Vehicle.Flags.Stopped | Vehicle.Flags.WaitingLoading | Vehicle.Flags.Landing);
                     data.m_flags |= Vehicle.Flags.Leaving;
                     data.m_waitCounter = 0;
                 }
@@ -282,6 +282,7 @@ namespace AdditionalFreightTransporters.AI
                 }
             }
             data.m_waitCounter = 0;
+            data.m_flags &= ~Vehicle.Flags.Arriving;
             data.m_flags |= Vehicle.Flags.WaitingLoading;
             return false;
         }
@@ -327,6 +328,7 @@ namespace AdditionalFreightTransporters.AI
                 }
             }
             data.m_waitCounter = 0;
+            data.m_flags &= ~Vehicle.Flags.Arriving;
             data.m_flags |= Vehicle.Flags.WaitingLoading;
             return false;
         }
