@@ -169,7 +169,7 @@ namespace AdditionalFreightTransporters.AI
                     data.m_waitCounter = 0;
                 }
             }
-            else if ((data.m_flags & Vehicle.Flags.GoingBack) != 0)
+            else if ((data.m_flags & Vehicle.Flags.GoingBack) == 0 && data.m_targetBuilding != 0 && (Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_targetBuilding].m_flags & Building.Flags.Active) == Building.Flags.None)
             {
                 SetTarget(vehicleID, ref data, 0);
             } 
