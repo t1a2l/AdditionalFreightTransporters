@@ -169,7 +169,7 @@ namespace AdditionalFreightTransporters.AI
                     data.m_waitCounter = 0;
                 }
             }
-            else if ((data.m_flags & Vehicle.Flags.GoingBack) == 0)
+            else if ((data.m_flags & Vehicle.Flags.GoingBack) != 0)
             {
                 SetTarget(vehicleID, ref data, 0);
             } 
