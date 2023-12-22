@@ -133,7 +133,9 @@ namespace AdditionalFreightTransporters.AI
                     }
                 }
                 else
+                {
                     data.m_flags |= Vehicle.Flags.GoingBack;
+                }  
             }
             if ((data.m_flags & Vehicle.Flags.WaitingCargo) != 0 || StartPathFind(vehicleID, ref data))
             {
@@ -468,6 +470,13 @@ namespace AdditionalFreightTransporters.AI
             }
             Randomizer randomizer = new(vehicleID);
             current = randomizer.Int32(max >> 1, max);
+        }
+
+        public override InstanceID GetTargetID(ushort vehicleID, ref Vehicle vehicleData)
+        {
+            InstanceID result = default;
+            result.Building = vehicleData.m_targetBuilding;
+            return result;
         }
     }
 }

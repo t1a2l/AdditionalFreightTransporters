@@ -118,7 +118,9 @@ namespace AdditionalFreightTransporters.AI
                     }
                 }
                 else
+                {
                     data.m_flags |= Vehicle.Flags.GoingBack;
+                }
             }
             if ((data.m_flags & Vehicle.Flags.WaitingCargo) != 0 || StartPathFind(vehicleID, ref data))
             {

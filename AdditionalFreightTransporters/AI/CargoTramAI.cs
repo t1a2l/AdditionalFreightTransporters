@@ -120,7 +120,9 @@ namespace AdditionalFreightTransporters.AI
                     }
                 }
                 else
+                {
                     data.m_flags |= Vehicle.Flags.GoingBack;
+                } 
             }
             if ((data.m_flags & Vehicle.Flags.WaitingCargo) != 0 || StartPathFind(vehicleID, ref data))
             {
@@ -131,10 +133,12 @@ namespace AdditionalFreightTransporters.AI
 
         private void RemoveTarget(ushort vehicleID, ref Vehicle data)
         {
-            if (data.m_targetBuilding == (ushort)0)
+            if (data.m_targetBuilding == 0)
+            {
                 return;
+            }
             Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)data.m_targetBuilding].RemoveGuestVehicle(vehicleID, ref data);
-            data.m_targetBuilding = (ushort)0;
+            data.m_targetBuilding = 0;
         }
 
         public override void SimulationStep(ushort vehicleID, ref Vehicle data, Vector3 physicsLodRefPos)
@@ -454,6 +458,13 @@ namespace AdditionalFreightTransporters.AI
             }
             Randomizer randomizer = new(vehicleID);
             current = randomizer.Int32(max >> 1, max);
+        }
+
+        public override InstanceID GetTargetID(ushort vehicleID, ref Vehicle vehicleData)
+        {
+            InstanceID result = default;
+            result.Building = vehicleData.m_targetBuilding;
+            return result;
         }
     }
 }
