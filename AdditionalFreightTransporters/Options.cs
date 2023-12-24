@@ -13,38 +13,32 @@ namespace AdditionalFreightTransporters
         
         [HideWhenNotInAssetEditorCondition]
         [XmlIgnore]
-        [Button("To barge harbor", null, 
-            nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToBargeHarbor))]
+        [Button("To barge harbor", null, nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToBargeHarborFacility))]
         public object ToBargeHarborButton { get; set; } = null;
         
         [HideWhenNotInAssetEditorCondition]
         [XmlIgnore]
-        [Button("To barge vehicle", null, 
-            nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToBargeVehicle))]
-        public object ToBargeButton { get; set; } = null;
+        [Button("To barge vehicle", null, nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToBargeVehicle))]
+        public object ToBargeVehicleButton { get; set; } = null;
 
         [HideWhenNotInAssetEditorCondition]
         [XmlIgnore]
-        [Button("To cargo helicopter depot", null,
-            nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToCargoHelicopterDepot))]
+        [Button("To cargo helicopter depot", null, nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToCargoHelicopterFacility))]
         public object ToCargoHelicopterDepotButton { get; set; } = null;
 
         [HideWhenNotInAssetEditorCondition]
         [XmlIgnore]
-        [Button("To cargo helicopter vehicle", null,
-            nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToCargoHelicopterVehicle))]
+        [Button("To cargo helicopter vehicle", null, nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToCargoHelicopterVehicle))]
         public object ToCargoHelicopterVehicleButton { get; set; } = null;
 
         [HideWhenNotInAssetEditorCondition]
         [XmlIgnore]
-        [Button("To cargo tram depot", null,
-            nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToCargoHelicopterDepot))]
+        [Button("To cargo tram depot", null, nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToCargoHelicopterFacility))]
         public object ToCargoTramDepotButton { get; set; } = null;
 
         [HideWhenNotInAssetEditorCondition]
         [XmlIgnore]
-        [Button("To cargo tram vehicle", null,
-            nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToCargoHelicopterVehicle))]
+        [Button("To cargo tram vehicle", null, nameof(AdditionalFreightTransportersEditedAssetTransformer), nameof(AdditionalFreightTransportersEditedAssetTransformer.ToCargoHelicopterVehicle))]
         public object ToCargoTramVehicleButton { get; set; } = null;
     }
 }

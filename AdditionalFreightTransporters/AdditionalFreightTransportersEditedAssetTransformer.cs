@@ -4,7 +4,7 @@ namespace AdditionalFreightTransporters
 {
     public static class AdditionalFreightTransportersEditedAssetTransformer
     {
-        public static void ToBargeHarbor()
+        public static void ToBargeHarborFacility()
         {
             var buildingInfo = ToolsModifierControl.toolController.m_editPrefabInfo as BuildingInfo;
             if (buildingInfo?.m_buildingAI is not CargoHarborAI cargoHarborAI)
@@ -30,7 +30,7 @@ namespace AdditionalFreightTransporters
             cargoShipAI.m_transportInfo = PrefabCollection<TransportInfo>.FindLoaded("Ferry");
         }
 
-        public static void ToCargoHelicopterDepot()
+        public static void ToCargoHelicopterFacility()
         {
             var buildingInfo = ToolsModifierControl.toolController.m_editPrefabInfo as BuildingInfo;
             if (buildingInfo?.m_buildingAI is not DepotAI depotAI)
@@ -57,7 +57,7 @@ namespace AdditionalFreightTransporters
             passengerHelicopterAI.m_transportInfo = PrefabCollection<TransportInfo>.FindLoaded("Helicopter");
         }
 
-        public static void ToCargoTramDepot()
+        public static void ToCargoTramFacility()
         {
             var buildingInfo = ToolsModifierControl.toolController.m_editPrefabInfo as BuildingInfo;
             if (buildingInfo?.m_buildingAI is not DepotAI depotAI)
