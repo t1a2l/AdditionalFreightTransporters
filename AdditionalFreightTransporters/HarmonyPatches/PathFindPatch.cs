@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +8,7 @@ using UnityEngine;
 
 namespace AdditionalFreightTransporters.HarmonyPatches
 {
+    [HarmonyPatch]
     internal class PathFindPatch
     {
         private static readonly FieldInfo laneTypesField = typeof(PathFind).GetField("m_laneTypes", BindingFlags.NonPublic | BindingFlags.Instance);

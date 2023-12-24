@@ -8,6 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace AdditionalFreightTransporters.HarmonyPatches
 {
+    [HarmonyPatch(typeof(BuildingInfo))]
     internal static class BuildingInfoPatch
     {
         [HarmonyPatch(typeof(BuildingInfo), "InitializePrefab")]
