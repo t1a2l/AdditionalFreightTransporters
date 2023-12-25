@@ -32,7 +32,7 @@ namespace AdditionalFreightTransporters
                 Debug.Log("AdditionalFreightTransporters: More Vehicles is not enabled");
                 AdditionalFreightTransportersMod.MaxVehicleCount = VehicleManager.MAX_VEHICLE_COUNT;
             }
-            if (!Util.IsModActive("Vehicle Selector"))
+            if (Util.IsModActive("Vehicle Selector"))
             {
                 Debug.Log("AdditionalFreightTransporters: Vehicle Selector is detected! CargoTruckAI.ChangeVehicleType() won't be patched");
             } 
