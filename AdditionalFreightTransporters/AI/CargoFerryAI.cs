@@ -455,5 +455,12 @@ namespace AdditionalFreightTransporters.AI
             Randomizer randomizer = new(vehicleID);
             current = randomizer.Int32(max >> 1, max);
         }
+
+        public override InstanceID GetOwnerID(ushort vehicleID, ref Vehicle vehicleData)
+        {
+            InstanceID empty = InstanceID.Empty;
+            empty.Building = vehicleData.m_sourceBuilding;
+            return empty;
+        }
     }
 }

@@ -466,5 +466,12 @@ namespace AdditionalFreightTransporters.AI
             result.Building = vehicleData.m_targetBuilding;
             return result;
         }
+
+        public override InstanceID GetOwnerID(ushort vehicleID, ref Vehicle vehicleData)
+        {
+            InstanceID empty = InstanceID.Empty;
+            empty.Building = vehicleData.m_sourceBuilding;
+            return empty;
+        }
     }
 }
