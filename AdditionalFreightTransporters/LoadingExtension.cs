@@ -54,7 +54,6 @@ namespace AdditionalFreightTransporters
                 return;
             }
             _gameObject = new GameObject("AdditionalFreightTransporters");
-            _gameObject.AddComponent<GamePanelExtender>();
         }
 
         public override void OnLevelUnloading()
