@@ -2,6 +2,7 @@
 using ColossalFramework;
 using ColossalFramework.UI;
 using HarmonyLib;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace AdditionalFreightTransporters.HarmonyPatches
@@ -9,15 +10,13 @@ namespace AdditionalFreightTransporters.HarmonyPatches
     [HarmonyPatch(typeof(WarehouseWorldInfoPanel))]
     public static class OnSetTargetPatch
     {
-        [HarmonyPatch(typeof(WarehouseWorldInfoPanel), "OpenWorldInfoPanel")]
+        [HarmonyPatch(typeof(WarehouseWorldInfoPanel), "OnSetTarget")]
         [HarmonyPrefix]
-        public static bool OnSetTarget(WarehouseWorldInfoPanel __instance, ref UIPanel ___m_resourcePanel, ref float ___m_originalHeight, ref TransferManager.TransferReason[] ___m_transferReasons, ref InstanceID ___m_InstanceID, ref UIDropDown ___m_dropdownResource, ref UIDropDown ___m_dropdownMode, ref int ___warehouseMode, ref UITextField ___m_NameField, ref float ___m_Time)
+        public static bool OnSetTarget(WarehouseWorldInfoPanel __instance, ref UIPanel ___m_resourcePanel, ref float ___m_originalHeight, ref TransferManager.TransferReason[] ___m_transferReasons, ref InstanceID ___m_InstanceID, ref UIDropDown ___m_dropdownResource, ref UIDropDown ___m_dropdownMode)
         {
             var buildingAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI;
-
             if (buildingAI is CargoFerryWarehouseHarborAI || buildingAI is CargoHelicopterWarehouseHarborAI || buildingAI is CargoTramWarehouseHarborAI)
             {
-
                 OnSetTargetBasePatch.OnSetTarget(__instance);
                 CargoFerryWarehouseHarborAI cargoFerryWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoFerryWarehouseHarborAI;
                 CargoHelicopterWarehouseHarborAI cargoHelicopterWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoHelicopterWarehouseHarborAI;
@@ -59,7 +58,10 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                         num++;
                     }
                 }
-                ___m_dropdownMode.selectedIndex = ___warehouseMode;
+                var type = AccessTools.FirstInner(typeof(WarehouseWorldInfoPanel), item => item.Name == "WarehouseMode");
+                var property = AccessTools.PropertyGetter(type, "warehouseMode");
+                var result = (int)property.Invoke(__instance, null);
+                ___m_dropdownMode.selectedIndex = result;
                 return false;
             }
             return true;
@@ -73,7 +75,6 @@ namespace AdditionalFreightTransporters.HarmonyPatches
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void OnSetTarget(BuildingWorldInfoPanel instance)
         {
-            
         }
     }
 }
