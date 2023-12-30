@@ -8,7 +8,7 @@ using UnityEngine;
 namespace AdditionalFreightTransporters.AI
 {
     //based of CargoHarborAI but without animals, connections & checking height
-    public class CargoFerryWarehouseHarborAI : CargoFerryHarborAI
+    public class CargoHelicopterWarehouseHarborAI : CargoHelicopterDepotAI
     {
         [CustomizableProperty("Truck Count")] public int m_truckCount = 25;
 
