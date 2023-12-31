@@ -2,7 +2,6 @@
 using ColossalFramework;
 using ColossalFramework.UI;
 using HarmonyLib;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace AdditionalFreightTransporters.HarmonyPatches
@@ -58,10 +57,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                         num++;
                     }
                 }
-                var type = AccessTools.FirstInner(typeof(WarehouseWorldInfoPanel), item => item.Name == "WarehouseMode");
-                var property = AccessTools.PropertyGetter(type, "warehouseMode");
-                var result = (int)property.Invoke(__instance, null);
-                ___m_dropdownMode.selectedIndex = result;
+                ___m_dropdownMode.selectedIndex = (int)AccessTools.PropertyGetter(typeof(WarehouseWorldInfoPanel), "warehouseMode").Invoke(__instance, null);
                 return false;
             }
             return true;
