@@ -166,11 +166,11 @@ namespace AdditionalFreightTransporters.HarmonyPatches
 
         [HarmonyPatch(typeof(WarehouseWorldInfoPanel), "OnDropdownResourceChanged")]
         [HarmonyPrefix]
-        public static bool OnDropdownResourceChanged(WarehouseWorldInfoPanel __instance, UIComponent component, int index, ref InstanceID ___m_InstanceID, ref TransferManager.TransferReason[] ___transferReasons)
+        public static bool OnDropdownResourceChanged(WarehouseWorldInfoPanel __instance, UIComponent component, int index, ref InstanceID ___m_InstanceID, ref TransferManager.TransferReason[] ___m_transferReasons)
         {
             var buildingAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI;
             var buildingId = ___m_InstanceID.Building;
-            var material = ___transferReasons[index];
+            var material = ___m_transferReasons[index];
             if (buildingAI is CargoFerryWarehouseHarborAI cargoFerryWarehouseHarborAI)
             {
                 Singleton<SimulationManager>.instance.AddAction(delegate
