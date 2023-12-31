@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace AdditionalFreightTransporters.HarmonyPatches
 {
     [HarmonyPatch(typeof(WarehouseWorldInfoPanel))]
-    public static class OnSetTargetPatch
+    public static class WarehouseOnSetTargetPatch
     {
         [HarmonyPatch(typeof(WarehouseWorldInfoPanel), "OnSetTarget")]
         [HarmonyPrefix]
@@ -24,11 +24,11 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                 {
                     ___m_resourcePanel.isVisible = cargoFerryWarehouseHarborAI.m_storageType == TransferManager.TransferReason.None;
                 }
-                if (cargoHelicopterWarehouseHarborAI != null)
+                else if (cargoHelicopterWarehouseHarborAI != null)
                 {
                     ___m_resourcePanel.isVisible = cargoHelicopterWarehouseHarborAI.m_storageType == TransferManager.TransferReason.None;
                 }
-                if (cargoTramWarehouseHarborAI != null)
+                else if(cargoTramWarehouseHarborAI != null)
                 {
                     ___m_resourcePanel.isVisible = cargoTramWarehouseHarborAI.m_storageType == TransferManager.TransferReason.None;
                 }
@@ -44,12 +44,12 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                             ___m_dropdownResource.selectedIndex = num;
                             break;
                         }
-                        if (transferReason == cargoHelicopterWarehouseHarborAI.GetTransferReason(___m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building]))
+                        else if(transferReason == cargoHelicopterWarehouseHarborAI.GetTransferReason(___m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building]))
                         {
                             ___m_dropdownResource.selectedIndex = num;
                             break;
                         }
-                        if (transferReason == cargoTramWarehouseHarborAI.GetTransferReason(___m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building]))
+                        else if(transferReason == cargoTramWarehouseHarborAI.GetTransferReason(___m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building]))
                         {
                             ___m_dropdownResource.selectedIndex = num;
                             break;
