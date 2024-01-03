@@ -41,16 +41,17 @@ namespace AdditionalFreightTransporters
             }
             buildingInfo.m_isCustomContent = true;
             buildingInfo.m_class = ItemClasses.cargoHelicopterFacility;
-            if (buildingInfo?.m_buildingAI is HelicopterDepotAI)
+            if (buildingInfo?.m_buildingAI is DepotAI depotAI)
+            {
+                depotAI.m_transportInfo = PrefabCollection<TransportInfo>.FindLoaded("Helicopter");
+            }
+            else if (buildingInfo?.m_buildingAI is HelicopterDepotAI)
             {
                 var oldAi = buildingInfo.GetComponent<HelicopterDepotAI>();
                 Object.DestroyImmediate(oldAi);
                 var ai = buildingInfo.gameObject.AddComponent<DepotAI>();
                 PrefabUtil.TryCopyAttributes(oldAi, ai, false);
-            }
-            if (buildingInfo?.m_buildingAI is DepotAI depotAI)
-            {
-                depotAI.m_transportInfo = PrefabCollection<TransportInfo>.FindLoaded("Helicopter");
+                ai.m_transportInfo = PrefabCollection<TransportInfo>.FindLoaded("Helicopter");
             }
         }
 
@@ -64,20 +65,21 @@ namespace AdditionalFreightTransporters
                 Debug.LogWarning("AdditionalFreightTransporters: Current asset is not a vehicle or is not PassengerHelicopterAI or is not PoliceCopterAI or is not AmbulanceCopterAI or is not FireCopterAI or is not DisasterResponseCopterAI");
                 return;
             }
-            if (vehicleInfo?.m_vehicleAI is HelicopterAI || vehicleInfo?.m_vehicleAI is PoliceCopterAI || vehicleInfo?.m_vehicleAI is AmbulanceCopterAI || 
-                vehicleInfo?.m_vehicleAI is FireCopterAI || vehicleInfo?.m_vehicleAI is DisasterResponseCopterAI)
-            {
-                var oldAi = vehicleInfo.GetComponent<PrefabAI>();
-                Object.DestroyImmediate(oldAi);
-                var ai = vehicleInfo.gameObject.AddComponent<PassengerHelicopterAI>();
-                PrefabUtil.TryCopyAttributes(oldAi, ai, false);
-            }
             vehicleInfo.m_vehicleType = VehicleInfo.VehicleType.Helicopter;
             vehicleInfo.m_class = ItemClasses.cargoHelicopterVehicle;
             vehicleInfo.m_isCustomContent = true;
             if (vehicleInfo?.m_vehicleAI is PassengerHelicopterAI passengerHelicopterAI)
             {
                 passengerHelicopterAI.m_transportInfo = PrefabCollection<TransportInfo>.FindLoaded("Helicopter");
+            }
+            else if (vehicleInfo?.m_vehicleAI is HelicopterAI || vehicleInfo?.m_vehicleAI is PoliceCopterAI || vehicleInfo?.m_vehicleAI is AmbulanceCopterAI || 
+                vehicleInfo?.m_vehicleAI is FireCopterAI || vehicleInfo?.m_vehicleAI is DisasterResponseCopterAI)
+            {
+                var oldAi = vehicleInfo.GetComponent<PrefabAI>();
+                Object.DestroyImmediate(oldAi);
+                var ai = vehicleInfo.gameObject.AddComponent<PassengerHelicopterAI>();
+                PrefabUtil.TryCopyAttributes(oldAi, ai, false);
+                ai.m_transportInfo = PrefabCollection<TransportInfo>.FindLoaded("Helicopter");
             }
         }
 
