@@ -8,7 +8,7 @@ namespace AdditionalFreightTransporters
     public class Options
     {
         [HideInGameOrEditorCondition]
-        [Checkbox("Built-in warehouse for barge harbors (Industries DLC is required)")]
+        [Checkbox("Built-in warehouse for barge harbors, helicopter and tram facilities (Industries DLC is required)")]
         public bool EnableWarehouseAI { get; set; } = true;
         
         [HideWhenNotInAssetEditorCondition]

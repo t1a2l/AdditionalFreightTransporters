@@ -30,35 +30,36 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                     PrefabUtil.TryCopyAttributes(oldAi, ai, false);
                 }
 
-                if (__instance?.m_class?.name == ItemClasses.cargoHelicopterFacility.name && Ai is DepotAI)
+                if (Ai is CargoStationAI)
                 {
-                    var oldAi = __instance.GetComponent<DepotAI>();
-                    Object.DestroyImmediate(oldAi);
-                    var ai = SteamHelper.IsDLCOwned(SteamHelper.DLC.IndustryDLC) &
-                              OptionsWrapper<Options>.Options.EnableWarehouseAI
-                        ? __instance.gameObject.AddComponent<CargoHelicopterWarehouseDepotAI>()
-                        : __instance.gameObject.AddComponent<CargoHelicopterDepotAI>();
-                    PrefabUtil.TryCopyAttributes(oldAi, ai, false);
-                }
+                    if (__instance?.m_class?.name == ItemClasses.cargoHelicopterFacility.name)
+                    {
+                        var oldAi = __instance.GetComponent<CargoStationAI>();
+                        Object.DestroyImmediate(oldAi);
+                        var ai = SteamHelper.IsDLCOwned(SteamHelper.DLC.IndustryDLC) &
+                                  OptionsWrapper<Options>.Options.EnableWarehouseAI
+                            ? __instance.gameObject.AddComponent<CargoHelicopterWarehouseDepotAI>()
+                            : __instance.gameObject.AddComponent<CargoHelicopterDepotAI>();
+                        PrefabUtil.TryCopyAttributes(oldAi, ai, false);
+                    }
 
-                if (__instance?.m_class?.name == ItemClasses.cargoTramFacility.name && Ai is DepotAI)
-                {
-                    var oldAi = __instance.GetComponent<DepotAI>();
-                    Object.DestroyImmediate(oldAi);
-                    var ai = SteamHelper.IsDLCOwned(SteamHelper.DLC.IndustryDLC) &
-                              OptionsWrapper<Options>.Options.EnableWarehouseAI
-                        ? __instance.gameObject.AddComponent<CargoTramWarehouseDepotAI>()
-                        : __instance.gameObject.AddComponent<CargoTramDepotAI>();
-                    PrefabUtil.TryCopyAttributes(oldAi, ai, false);
+                    if (__instance?.m_class?.name == ItemClasses.cargoTramFacility.name)
+                    {
+                        var oldAi = __instance.GetComponent<CargoStationAI>();
+                        Object.DestroyImmediate(oldAi);
+                        var ai = SteamHelper.IsDLCOwned(SteamHelper.DLC.IndustryDLC) &
+                                  OptionsWrapper<Options>.Options.EnableWarehouseAI
+                            ? __instance.gameObject.AddComponent<CargoTramWarehouseDepotAI>()
+                            : __instance.gameObject.AddComponent<CargoTramDepotAI>();
+                        PrefabUtil.TryCopyAttributes(oldAi, ai, false);
+                    }
                 }
-
                 return true;
             }
             catch (Exception e)
             {
                 Debug.LogException(e);
             }
-
             return true;
         }
     }
