@@ -34,7 +34,10 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                 {
                     var oldAi = __instance.GetComponent<DepotAI>();
                     Object.DestroyImmediate(oldAi);
-                    var ai = __instance.gameObject.AddComponent<CargoHelicopterDepotAI>();
+                    var ai = SteamHelper.IsDLCOwned(SteamHelper.DLC.IndustryDLC) &
+                              OptionsWrapper<Options>.Options.EnableWarehouseAI
+                        ? __instance.gameObject.AddComponent<CargoHelicopterWarehouseDepotAI>()
+                        : __instance.gameObject.AddComponent<CargoHelicopterDepotAI>();
                     PrefabUtil.TryCopyAttributes(oldAi, ai, false);
                 }
 
@@ -42,7 +45,10 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                 {
                     var oldAi = __instance.GetComponent<DepotAI>();
                     Object.DestroyImmediate(oldAi);
-                    var ai = __instance.gameObject.AddComponent<CargoTramDepotAI>();
+                    var ai = SteamHelper.IsDLCOwned(SteamHelper.DLC.IndustryDLC) &
+                              OptionsWrapper<Options>.Options.EnableWarehouseAI
+                        ? __instance.gameObject.AddComponent<CargoTramWarehouseDepotAI>()
+                        : __instance.gameObject.AddComponent<CargoTramDepotAI>();
                     PrefabUtil.TryCopyAttributes(oldAi, ai, false);
                 }
 
