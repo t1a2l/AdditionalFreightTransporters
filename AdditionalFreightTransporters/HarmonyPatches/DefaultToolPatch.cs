@@ -16,8 +16,8 @@ namespace AdditionalFreightTransporters.HarmonyPatches
             {
                 BuildingInfo info = Singleton<BuildingManager>.instance.m_buildings.m_buffer[id.Building].Info;
                 CargoFerryWarehouseHarborAI cargoFerryWarehouseHarborAI = info.m_buildingAI as CargoFerryWarehouseHarborAI;
-                CargoHelicopterWarehouseHarborAI cargoHelicopterWarehouseHarborAI = info.m_buildingAI as CargoHelicopterWarehouseHarborAI;
-                CargoTramWarehouseHarborAI cargoTramWarehouseHarborAI = info.m_buildingAI as CargoTramWarehouseHarborAI;
+                CargoHelicopterWarehouseDepotAI cargoHelicopterWarehouseHarborAI = info.m_buildingAI as CargoHelicopterWarehouseDepotAI;
+                CargoTramWarehouseDepotAI cargoTramWarehouseHarborAI = info.m_buildingAI as CargoTramWarehouseDepotAI;
                 if (Singleton<InstanceManager>.instance.SelectInstance(id))
                 {
                     if (cargoFerryWarehouseHarborAI != null)

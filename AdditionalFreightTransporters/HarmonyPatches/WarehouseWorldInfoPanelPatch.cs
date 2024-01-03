@@ -18,12 +18,12 @@ namespace AdditionalFreightTransporters.HarmonyPatches
         public static bool OnSetTarget(WarehouseWorldInfoPanel __instance, ref UIPanel ___m_resourcePanel, ref float ___m_originalHeight, ref TransferManager.TransferReason[] ___m_transferReasons, ref InstanceID ___m_InstanceID, ref UIDropDown ___m_dropdownResource, ref UIDropDown ___m_dropdownMode)
         {
             var buildingAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI;
-            if (buildingAI is CargoFerryWarehouseHarborAI || buildingAI is CargoHelicopterWarehouseHarborAI || buildingAI is CargoTramWarehouseHarborAI)
+            if (buildingAI is CargoFerryWarehouseHarborAI || buildingAI is CargoHelicopterWarehouseDepotAI || buildingAI is CargoTramWarehouseDepotAI)
             {
                 OnSetTargetBasePatch.OnSetTarget(__instance);
                 CargoFerryWarehouseHarborAI cargoFerryWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoFerryWarehouseHarborAI;
-                CargoHelicopterWarehouseHarborAI cargoHelicopterWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoHelicopterWarehouseHarborAI;
-                CargoTramWarehouseHarborAI cargoTramWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoTramWarehouseHarborAI;
+                CargoHelicopterWarehouseDepotAI cargoHelicopterWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoHelicopterWarehouseDepotAI;
+                CargoTramWarehouseDepotAI cargoTramWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoTramWarehouseDepotAI;
                 if(cargoFerryWarehouseHarborAI != null)
                 {
                     ___m_resourcePanel.isVisible = cargoFerryWarehouseHarborAI.m_storageType == TransferManager.TransferReason.None;
@@ -72,7 +72,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
         public static bool UpdateBindings(WarehouseWorldInfoPanel __instance, ref InstanceID ___m_InstanceID, ref UILabel ___m_Type, ref UILabel ___m_Status, ref UILabel ___m_Upkeep, ref UISprite ___m_Thumbnail, ref UILabel ___m_BuildingDesc, ref UIButton ___m_RebuildButton, ref UIPanel ___m_ActionPanel, ref UIProgressBar ___m_resourceProgressBar, ref UILabel ___m_resourceLabel, ref UIPanel ___m_emptyingOldResource, ref UILabel ___m_resourceDescription, ref UISprite ___m_resourceSprite, ref UIPanel ___m_buffer, ref UILabel ___m_capacityLabel, ref UILabel ___m_Info, ref UILabel ___m_OverWorkSituation, ref UILabel ___m_UneducatedPlaces, ref UILabel ___m_EducatedPlaces, ref UILabel ___m_WellEducatedPlaces, ref UILabel ___m_HighlyEducatedPlaces, ref UILabel ___m_UneducatedWorkers, ref UILabel ___m_EducatedWorkers, ref UILabel ___m_WellEducatedWorkers, ref UILabel ___m_HighlyEducatedWorkers, ref UILabel ___m_JobsAvailLegend, ref UIRadialChart ___m_WorkPlacesEducationChart, ref UIRadialChart ___m_WorkersEducationChart, ref UILabel ___m_workersInfoLabel)
         {
             var buildingAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI;
-            if (buildingAI is CargoFerryWarehouseHarborAI || buildingAI is CargoHelicopterWarehouseHarborAI || buildingAI is CargoTramWarehouseHarborAI)
+            if (buildingAI is CargoFerryWarehouseHarborAI || buildingAI is CargoHelicopterWarehouseDepotAI || buildingAI is CargoTramWarehouseDepotAI)
             {
                 UpdateBindingsBasePatch.UpdateBindings(__instance);
                 ushort building = ___m_InstanceID.Building;
@@ -107,8 +107,8 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                 }
 
                 CargoFerryWarehouseHarborAI cargoFerryWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoFerryWarehouseHarborAI;
-                CargoHelicopterWarehouseHarborAI cargoHelicopterWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoHelicopterWarehouseHarborAI;
-                CargoTramWarehouseHarborAI cargoTramWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoTramWarehouseHarborAI;
+                CargoHelicopterWarehouseDepotAI cargoHelicopterWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoHelicopterWarehouseDepotAI;
+                CargoTramWarehouseDepotAI cargoTramWarehouseHarborAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as CargoTramWarehouseDepotAI;
                 if (cargoFerryWarehouseHarborAI != null)
                 {
                     int num = building2.m_customBuffer1 * 100;
@@ -179,7 +179,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                 });
                 return false;
             }
-            else if (buildingAI is CargoHelicopterWarehouseHarborAI cargoHelicopterWarehouseHarborAI)
+            else if (buildingAI is CargoHelicopterWarehouseDepotAI cargoHelicopterWarehouseHarborAI)
             {
                 Singleton<SimulationManager>.instance.AddAction(delegate
                 {
@@ -187,7 +187,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                 });
                 return false;
             }
-            else if (buildingAI is CargoTramWarehouseHarborAI cargoTramWarehouseHarborAI)
+            else if (buildingAI is CargoTramWarehouseDepotAI cargoTramWarehouseHarborAI)
             {
                 Singleton<SimulationManager>.instance.AddAction(delegate
                 {
@@ -234,14 +234,14 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                 num7 = cargoFerryWarehouseHarborAI.m_workPlaceCount2;
                 num8 = cargoFerryWarehouseHarborAI.m_workPlaceCount3;
             }
-            else if (buildingAI is CargoHelicopterWarehouseHarborAI cargoHelicopterWarehouseHarborAI)
+            else if (buildingAI is CargoHelicopterWarehouseDepotAI cargoHelicopterWarehouseHarborAI)
             {
                 num5 = cargoHelicopterWarehouseHarborAI.m_workPlaceCount0;
                 num6 = cargoHelicopterWarehouseHarborAI.m_workPlaceCount1;
                 num7 = cargoHelicopterWarehouseHarborAI.m_workPlaceCount2;
                 num8 = cargoHelicopterWarehouseHarborAI.m_workPlaceCount3;
             }
-            else if (buildingAI is CargoTramWarehouseHarborAI cargoTramWarehouseHarborAI)
+            else if (buildingAI is CargoTramWarehouseDepotAI cargoTramWarehouseHarborAI)
             {
                 num5 = cargoTramWarehouseHarborAI.m_workPlaceCount0;
                 num6 = cargoTramWarehouseHarborAI.m_workPlaceCount1;
