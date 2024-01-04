@@ -43,20 +43,29 @@ namespace AdditionalFreightTransporters.HarmonyPatches
                     TransferManager.TransferReason[] transferReasons = ___m_transferReasons;
                     foreach (TransferManager.TransferReason transferReason in transferReasons)
                     {
-                        if (transferReason == cargoFerryWarehouseHarborAI.GetTransferReason(___m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building]))
+                        if(cargoFerryWarehouseHarborAI != null)
                         {
-                            ___m_dropdownResource.selectedIndex = num;
-                            break;
+                            if (transferReason == cargoFerryWarehouseHarborAI.GetTransferReason(___m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building]))
+                            {
+                                ___m_dropdownResource.selectedIndex = num;
+                                break;
+                            }
                         }
-                        else if(transferReason == cargoHelicopterWarehouseHarborAI.GetTransferReason(___m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building]))
+                        else if (cargoHelicopterWarehouseHarborAI != null)
                         {
-                            ___m_dropdownResource.selectedIndex = num;
-                            break;
+                            if (transferReason == cargoHelicopterWarehouseHarborAI.GetTransferReason(___m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building]))
+                            {
+                                ___m_dropdownResource.selectedIndex = num;
+                                break;
+                            }
                         }
-                        else if(transferReason == cargoTramWarehouseHarborAI.GetTransferReason(___m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building]))
+                        else if (cargoTramWarehouseHarborAI != null)
                         {
-                            ___m_dropdownResource.selectedIndex = num;
-                            break;
+                            if (transferReason == cargoTramWarehouseHarborAI.GetTransferReason(___m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building]))
+                            {
+                                ___m_dropdownResource.selectedIndex = num;
+                                break;
+                            }
                         }
                         num++;
                     }
