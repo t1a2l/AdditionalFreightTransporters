@@ -179,8 +179,7 @@ namespace AdditionalFreightTransporters.AI
             }
             else if ((data.m_flags & Vehicle.Flags.Stopped) != 0)
             {
-                data.m_waitCounter++;
-                if ((data.m_flags & Vehicle.Flags.Spawned) != 0 && data.m_waitCounter == 16)
+                if ((data.m_flags & Vehicle.Flags.Spawned) != 0 && ++data.m_waitCounter == 16)
                 {
                     data.m_flags &= ~(Vehicle.Flags.Stopped | Vehicle.Flags.WaitingLoading | Vehicle.Flags.Landing);
                     data.m_flags |= Vehicle.Flags.Leaving;
