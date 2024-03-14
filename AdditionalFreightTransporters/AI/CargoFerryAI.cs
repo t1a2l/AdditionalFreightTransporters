@@ -141,7 +141,7 @@ namespace AdditionalFreightTransporters.AI
         {
             if ((data.m_flags & Vehicle.Flags.WaitingCargo) != 0)
             {
-                bool flag = Singleton<SimulationManager>.instance.m_randomizer.Int32(2U) == 0;
+                bool flag = Singleton<SimulationManager>.instance.m_randomizer.Int32(20U) > 0;
                 if (!flag && data.m_sourceBuilding != 0 && (Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_sourceBuilding].m_flags & Building.Flags.Active) == Building.Flags.None)
                 {
                     flag = true;
