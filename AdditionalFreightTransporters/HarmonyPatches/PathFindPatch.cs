@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -20,8 +19,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
         }
 
         [HarmonyTranspiler]
-        internal static IEnumerable<CodeInstruction> Transpile(MethodBase original,
-            IEnumerable<CodeInstruction> instructions)
+        internal static IEnumerable<CodeInstruction> Transpile(MethodBase original, IEnumerable<CodeInstruction> instructions)
         {
             var codes = new List<CodeInstruction>(instructions);
             var newCodes = new List<CodeInstruction>();
