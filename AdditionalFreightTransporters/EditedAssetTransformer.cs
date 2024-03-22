@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AdditionalFreightTransporters
 {
-    public static class AdditionalFreightTransportersEditedAssetTransformer
+    public static class EditedAssetTransformer
     {
         public static void ToBargeHarborFacility()
         {

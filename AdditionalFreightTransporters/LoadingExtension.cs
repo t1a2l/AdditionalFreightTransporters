@@ -25,12 +25,12 @@ namespace AdditionalFreightTransporters
             if (Util.IsModActive(1764208250))
             {
                 Debug.LogWarning("AdditionalFreightTransporters: More Vehicles is enabled, applying compatibility workaround");
-                AdditionalFreightTransportersMod.MaxVehicleCount = ushort.MaxValue + 1;
+                Mod.MaxVehicleCount = ushort.MaxValue + 1;
             }
             else
             {
                 Debug.Log("AdditionalFreightTransporters: More Vehicles is not enabled");
-                AdditionalFreightTransportersMod.MaxVehicleCount = VehicleManager.MAX_VEHICLE_COUNT;
+                Mod.MaxVehicleCount = VehicleManager.MAX_VEHICLE_COUNT;
             }
             if (Util.IsModActive("Vehicle Selector"))
             {

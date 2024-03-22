@@ -156,7 +156,7 @@ namespace AdditionalFreightTransporters.AI
         {
             if ((data.m_flags & Vehicle.Flags.WaitingCargo) != 0)
             {
-                bool flag = Singleton<SimulationManager>.instance.m_randomizer.Int32(2U) == 0;
+                bool flag = Singleton<SimulationManager>.instance.m_randomizer.Int32((uint)(Settings.DelayHelicopter.value * 4)) > 0;
                 if (!flag && data.m_sourceBuilding != 0 && (Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_sourceBuilding].m_flags & Building.Flags.Active) == Building.Flags.None)
                 {
                     flag = true;
@@ -276,7 +276,7 @@ namespace AdditionalFreightTransporters.AI
                 instance.m_vehicles.m_buffer[vehicle].m_cargoParent = 0;
                 instance.ReleaseVehicle(vehicle);
                 vehicle = nextCargo;
-                if (++num > AdditionalFreightTransportersMod.MaxVehicleCount)
+                if (++num > Mod.MaxVehicleCount)
                 {
                     CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + System.Environment.StackTrace);
                     break;
@@ -322,7 +322,7 @@ namespace AdditionalFreightTransporters.AI
                     }
                 }
                 vehicleID1 = nextCargo;
-                if (++num > AdditionalFreightTransportersMod.MaxVehicleCount)
+                if (++num > Mod.MaxVehicleCount)
                 {
                     CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + System.Environment.StackTrace);
                     break;
@@ -457,7 +457,7 @@ namespace AdditionalFreightTransporters.AI
             {
                 ++current;
                 num1 = instance.m_vehicles.m_buffer[num1].m_nextCargo;
-                if (++num2 > AdditionalFreightTransportersMod.MaxVehicleCount)
+                if (++num2 > Mod.MaxVehicleCount)
                 {
                     CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + System.Environment.StackTrace);
                     break;
