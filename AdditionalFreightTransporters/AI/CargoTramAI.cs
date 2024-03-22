@@ -266,7 +266,7 @@ namespace AdditionalFreightTransporters.AI
                 instance.m_vehicles.m_buffer[vehicle].m_cargoParent = 0;
                 instance.ReleaseVehicle(vehicle);
                 vehicle = nextCargo;
-                if (++num > AdditionalFreightTransportersMod.MaxVehicleCount)
+                if (++num > Mod.MaxVehicleCount)
                 {
                     CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + System.Environment.StackTrace);
                     break;
@@ -311,7 +311,7 @@ namespace AdditionalFreightTransporters.AI
                     }
                 }
                 vehicleID1 = nextCargo;
-                if (++num > AdditionalFreightTransportersMod.MaxVehicleCount)
+                if (++num > Mod.MaxVehicleCount)
                 {
                     CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + System.Environment.StackTrace);
                     break;
@@ -446,7 +446,7 @@ namespace AdditionalFreightTransporters.AI
             {
                 ++current;
                 num1 = instance.m_vehicles.m_buffer[num1].m_nextCargo;
-                if (++num2 > AdditionalFreightTransportersMod.MaxVehicleCount)
+                if (++num2 > Mod.MaxVehicleCount)
                 {
                     CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + System.Environment.StackTrace);
                     break;
