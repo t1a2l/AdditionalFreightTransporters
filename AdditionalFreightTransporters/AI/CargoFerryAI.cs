@@ -9,7 +9,7 @@ namespace AdditionalFreightTransporters.AI
     public class CargoFerryAI : FerryAI
     {
         [CustomizableProperty("Cargo capacity")]
-        public int m_cargoCapacity = 1;
+        public int m_cargoCapacity = 10;
 
         public TransportInfo m_transportInfo;
 

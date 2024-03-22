@@ -8,7 +8,7 @@ namespace AdditionalFreightTransporters.AI
     public class CargoHelicopterAI : PassengerHelicopterAI
     {
         [CustomizableProperty("Cargo capacity")]
-        public int m_cargoCapacity = 1;
+        public int m_cargoCapacity = 3;
 
         public CargoHelicopterAI()
         {
