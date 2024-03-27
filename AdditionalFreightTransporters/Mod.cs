@@ -31,6 +31,12 @@ namespace AdditionalFreightTransporters
             m_sliderHelicopter = (UISlider)group.AddSlider($"Cargo Helicopters:", 1f, 10f, 1f, Settings.DelayHelicopter.value, ChangeSliderHelicopter);
             m_sliderHelicopter.width = 400f;
             m_sliderHelicopter.tooltip = Settings.DelayHelicopter.value.ToString() + "x";
+
+            group.AddCheckbox("Wait until a barge is Full befor sending away", Settings.BargeWaitUntilFull.value, (b) =>
+            {
+                Settings.BargeWaitUntilFull.value = b;
+            });
+
             group.AddSpace(10);
         }
         

@@ -141,6 +141,10 @@ namespace AdditionalFreightTransporters.AI
         {
             if ((data.m_flags & Vehicle.Flags.WaitingCargo) != 0)
             {
+                if(data.m_transferSize < m_cargoCapacity && Settings.BargeWaitUntilFull.value == true)
+                {
+                    return;
+                }
                 bool flag = Singleton<SimulationManager>.instance.m_randomizer.Int32((uint)(Settings.DelayBarge.value * 4)) > 0;
                 if (!flag && data.m_sourceBuilding != 0 && (Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_sourceBuilding].m_flags & Building.Flags.Active) == Building.Flags.None)
                 {

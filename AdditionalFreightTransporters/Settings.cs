@@ -11,6 +11,8 @@ namespace AdditionalFreightTransporters
         public static SavedInt DelayBarge = new("DelayBarge", settingsFileName, 4, true);
         public static SavedInt DelayHelicopter = new("DelayHelicopter", settingsFileName, 4, true);
 
+        public static SavedBool BargeWaitUntilFull = new("BargeWaitUntilFull", settingsFileName, false, true);
+
         public static void Init()
         {
             try
