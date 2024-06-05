@@ -80,6 +80,8 @@ namespace AdditionalFreightTransporters
                         _warehouseWorldInfoPanel = infoPanel1;
                         _swapSprite1 = Utils.UiUtil.CreateSwapSptite(_warehouseWorldInfoPanel.component, WarehouseSwapHandler, new Vector3(162, 240));
                         _swapLabel1 = Utils.UiUtil.CreateLabel("Swap spawn and unspawn positions", _warehouseWorldInfoPanel.component, new Vector3(178, 240));
+                        _swapSprite1.relativePosition = new Vector3(138, 550);
+                        _swapLabel1.relativePosition = new Vector3(148, 550);
                     }
                 }  
                 if(_cityServiceInfoPanel != null || _warehouseWorldInfoPanel != null)
@@ -117,11 +119,11 @@ namespace AdditionalFreightTransporters
             var id = instance.Building;
             var data = Singleton<BuildingManager>.instance.m_buildings.m_buffer[id];
             var isCargoStation = Utils.Util.IsCargoStation(data);
-            _swapSprite.isVisible = isCargoStation;
-            _swapLabel.isVisible = isCargoStation;
+            _swapSprite1.isVisible = isCargoStation;
+            _swapLabel1.isVisible = isCargoStation;
             if (isCargoStation)
             {
-                _swapSprite.spriteName = Configuration.IsStationInverted(data) ? "check-checked" : "check-unchecked";
+                _swapSprite1.spriteName = Configuration.IsStationInverted(data) ? "check-checked" : "check-unchecked";
             }
         }
 

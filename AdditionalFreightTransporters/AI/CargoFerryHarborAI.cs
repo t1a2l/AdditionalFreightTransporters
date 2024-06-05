@@ -9,7 +9,8 @@ namespace AdditionalFreightTransporters.AI
     //based of CargoHarborAI but without animals, connections & checking height
     public class CargoFerryHarborAI : CargoStationAI
     {
-        [NonSerialized] protected float m_quayOffset;
+        [NonSerialized] 
+        protected float m_quayOffset;
 
         public static bool IsCargoFerryHarbor(Building station)
         {
@@ -23,7 +24,6 @@ namespace AdditionalFreightTransporters.AI
             }
             return station.Info.m_buildingAI is CargoFerryHarborAI;
         }
-
 
         public override void InitializePrefab()
         {
@@ -74,7 +74,6 @@ namespace AdditionalFreightTransporters.AI
         }
 
         public override bool RequireRoadAccess() => true;
-
 
         public override void CalculateSpawnPosition(ushort buildingID, ref Building data, ref Randomizer randomizer, VehicleInfo info, out Vector3 position, out Vector3 target)
         {
@@ -180,15 +179,12 @@ namespace AdditionalFreightTransporters.AI
             return (Singleton<SimulationManager>.instance.m_metaData.m_invertTraffic == SimulationMetaData.MetaBool.True && !Configuration.IsStationInverted(data)) || Configuration.IsStationInverted(data);
         }
 
-
-        //PlayerBuildingAI implementation
         private static void BaseCalculateSpawnPosition(ushort buildingID, ref Building data, ref Randomizer randomizer, VehicleInfo info, out Vector3 position, out Vector3 target)
         {
             position = data.CalculateSidewalkPosition(0.0f, 3f);
             target = position;
         }
 
-        //PlayerBuildingAI implementation
         private static void BaseCalculateUnspawnPosition(ushort buildingID, ref Building data, ref Randomizer randomizer, VehicleInfo info, out Vector3 position, out Vector3 target)
         {
             position = data.CalculateSidewalkPosition(0.0f, 3f);
