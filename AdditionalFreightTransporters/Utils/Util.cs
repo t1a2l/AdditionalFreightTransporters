@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using AdditionalFreightTransporters.AI;
 using ColossalFramework.Plugins;
 using ICities;
 using UnityEngine;
@@ -72,7 +73,7 @@ namespace AdditionalFreightTransporters.Utils
             {
                 return false;
             }
-            return station.Info.m_buildingAI is CargoStationAI;
+            return station.Info.m_buildingAI is CargoFerryHarborAI || station.Info.m_buildingAI is CargoHelicopterDepotAI || station.Info.m_buildingAI is CargoTramDepotAI;
         }
 
         public static ushort StationBuildingIdByPosition(Vector3 position)
