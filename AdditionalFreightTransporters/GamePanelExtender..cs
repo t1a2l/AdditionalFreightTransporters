@@ -9,6 +9,7 @@ namespace AdditionalFreightTransporters
     {
         private bool _initialized;
         private CityServiceWorldInfoPanel _cityServiceInfoPanel;
+        private WarehouseWorldInfoPanel _warehouseWorldInfoPanel;
         private UISprite _swapSprite;
         private UILabel _swapLabel;
 
@@ -20,6 +21,10 @@ namespace AdditionalFreightTransporters
                 {
                     _cityServiceInfoPanel.component.RemoveUIComponent(_swapSprite);
                 }
+                if (_warehouseWorldInfoPanel != null)
+                {
+                    _warehouseWorldInfoPanel.component.RemoveUIComponent(_swapSprite);
+                }
                 Destroy(_swapSprite.gameObject);
                 _swapSprite = null;
             }
@@ -29,6 +34,10 @@ namespace AdditionalFreightTransporters
                 {
                     _cityServiceInfoPanel.component.RemoveUIComponent(_swapLabel);
                 }
+                if (_warehouseWorldInfoPanel != null)
+                {
+                    _warehouseWorldInfoPanel.component.RemoveUIComponent(_swapLabel);
+                }
                 Destroy(_swapLabel.gameObject);
                 _swapLabel = null;
             }
@@ -37,32 +46,46 @@ namespace AdditionalFreightTransporters
 
         public void Update()
         {
-
             if (!_initialized)
             {
                 var go = GameObject.Find("(Library) CityServiceWorldInfoPanel");
-                if (go == null)
+                if (go != null)
                 {
-                    return;
+                    var infoPanel = go.GetComponent<CityServiceWorldInfoPanel>();
+                    if (infoPanel != null)
+                    {
+                        _cityServiceInfoPanel = infoPanel;
+                        _swapSprite = Utils.UiUtil.CreateSwapSptite(_cityServiceInfoPanel.component, CityServiceSwapHandler, new Vector3(162, 240));
+                        _swapLabel = Utils.UiUtil.CreateLabel("Swap spawn and unspawn positions", _cityServiceInfoPanel.component, new Vector3(178, 240));
+                    }
+                    if (!_cityServiceInfoPanel.component.isVisible)
+                    {
+                        return;
+                    }
+                    _initialized = true;
+                    SetUpCityServiceSwapButton();
                 }
-                var infoPanel = go.GetComponent<CityServiceWorldInfoPanel>();
-                if (infoPanel == null)
+                var go1 = GameObject.Find("(Library) WarehouseWorldInfoPanel");
+                if (go1 != null)
                 {
-                    return;
-                }
-                _cityServiceInfoPanel = infoPanel;
-                _swapSprite = Utils.UiUtil.CreateSwapSptite(_cityServiceInfoPanel.component, SwapHandler, new Vector3(162, 240));
-                _swapLabel = Utils.UiUtil.CreateLabel("Swap spawn and unspawn positions", _cityServiceInfoPanel.component, new Vector3(178, 240));
-                _initialized = true;
+                    var infoPanel1 = go1.GetComponent<WarehouseWorldInfoPanel>();
+                    if (infoPanel1 != null)
+                    {
+                        _warehouseWorldInfoPanel = infoPanel1;
+                        _swapSprite = Utils.UiUtil.CreateSwapSptite(_warehouseWorldInfoPanel.component, WarehouseSwapHandler, new Vector3(162, 240));
+                        _swapLabel = Utils.UiUtil.CreateLabel("Swap spawn and unspawn positions", _warehouseWorldInfoPanel.component, new Vector3(178, 240));
+                    }
+                    if (!_warehouseWorldInfoPanel.component.isVisible)
+                    {
+                        return;
+                    }
+                    _initialized = true;
+                    SetUpWarehouseSwapButton();
+                }               
             }
-            if (!_cityServiceInfoPanel.component.isVisible)
-            {
-                return;
-            }
-            SetUpSwapButton();
         }
 
-        private void SetUpSwapButton()
+        private void SetUpCityServiceSwapButton()
         {
             var instance = (InstanceID)Utils.Util.GetInstanceField(typeof(CityServiceWorldInfoPanel), _cityServiceInfoPanel, "m_InstanceID");
             var id = instance.Building;
@@ -76,7 +99,21 @@ namespace AdditionalFreightTransporters
             }
         }
 
-        private void BuildingHandler(Action<ushort> action)
+        private void SetUpWarehouseSwapButton()
+        {
+            var instance = (InstanceID)Utils.Util.GetInstanceField(typeof(WarehouseWorldInfoPanel), _warehouseWorldInfoPanel, "m_InstanceID");
+            var id = instance.Building;
+            var data = Singleton<BuildingManager>.instance.m_buildings.m_buffer[id];
+            var isCargoStation = Utils.Util.IsCargoStation(data);
+            _swapSprite.isVisible = isCargoStation;
+            _swapLabel.isVisible = isCargoStation;
+            if (isCargoStation)
+            {
+                _swapSprite.spriteName = Configuration.IsStationInverted(data) ? "check-checked" : "check-unchecked";
+            }
+        }
+
+        private void CityServiceBuildingHandler(Action<ushort> action)
         {
             var instance = (InstanceID)Utils.Util.GetInstanceField(typeof(ZonedBuildingWorldInfoPanel), _cityServiceInfoPanel, "m_InstanceID");
             var id = instance.Building;
@@ -86,9 +123,24 @@ namespace AdditionalFreightTransporters
             });
         }
 
-        private void SwapHandler(UIComponent component, UIMouseEventParameter param)
+        private void WarehouseBuildingHandler(Action<ushort> action)
         {
-            BuildingHandler(SwapBuildingPositions);
+            var instance = (InstanceID)Utils.Util.GetInstanceField(typeof(ZonedBuildingWorldInfoPanel), _warehouseWorldInfoPanel, "m_InstanceID");
+            var id = instance.Building;
+            Singleton<SimulationManager>.instance.AddAction(() =>
+            {
+                action.Invoke(id);
+            });
+        }
+
+        private void CityServiceSwapHandler(UIComponent component, UIMouseEventParameter param)
+        {
+            CityServiceBuildingHandler(SwapBuildingPositions);
+        }
+
+        private void WarehouseSwapHandler(UIComponent component, UIMouseEventParameter param)
+        {
+            WarehouseBuildingHandler(SwapBuildingPositions);
         }
 
         private static void SwapBuildingPositions(ushort id)
