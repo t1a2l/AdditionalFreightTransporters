@@ -80,7 +80,7 @@ namespace AdditionalFreightTransporters
                         _warehouseWorldInfoPanel = infoPanel1;
                         _swapSprite1 = Utils.UiUtil.CreateSwapSptite(_warehouseWorldInfoPanel.component, WarehouseSwapHandler, new Vector3(162, 240));
                         _swapLabel1 = Utils.UiUtil.CreateLabel("Swap spawn and unspawn positions", _warehouseWorldInfoPanel.component, new Vector3(178, 240));
-                        _swapSprite1.relativePosition = new Vector3(138, 550);
+                        _swapSprite1.relativePosition = new Vector3(130, 550);
                         _swapLabel1.relativePosition = new Vector3(148, 550);
                     }
                 }  
