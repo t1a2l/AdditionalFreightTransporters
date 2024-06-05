@@ -61,5 +61,35 @@ namespace AdditionalFreightTransporters.Utils
                 return false;
             }
         }
+
+        public static bool IsCargoStation(Building station)
+        {
+            if (station.m_flags == Building.Flags.None)
+            {
+                return false;
+            }
+            if (station.Info == null)
+            {
+                return false;
+            }
+            return station.Info.m_buildingAI is CargoStationAI;
+        }
+
+        public static ushort StationBuildingIdByPosition(Vector3 position)
+        {
+            for (ushort i = 0; i < BuildingManager.instance.m_buildings.m_size; i++)
+            {
+                var building = BuildingManager.instance.m_buildings.m_buffer[i];
+                if (!IsCargoStation(building))
+                {
+                    continue;
+                }
+                if (position.Equals(building.m_position))
+                {
+                    return i;
+                }
+            }
+            throw new Exception(string.Format("No building was found for position {0}", position));
+        }
     }
 }

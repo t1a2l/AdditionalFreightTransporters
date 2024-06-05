@@ -2,14 +2,15 @@
 using CitiesHarmony.API;
 using ICities;
 using UnityEngine;
-using Util = AdditionalFreightTransporters.Utils.Util;
 
 namespace AdditionalFreightTransporters
 {
     public class LoadingExtension : LoadingExtensionBase
     {
         private static GameObject _gameObject;
-        
+
+        private static GameObject _gameObject2;
+
         public override void OnCreated(ILoading loading)
         {
             base.OnCreated(loading);
@@ -22,7 +23,7 @@ namespace AdditionalFreightTransporters
             {
                 return;
             }
-            if (Util.IsModActive(1764208250))
+            if (Utils.Util.IsModActive(1764208250))
             {
                 Debug.LogWarning("AdditionalFreightTransporters: More Vehicles is enabled, applying compatibility workaround");
                 Mod.MaxVehicleCount = ushort.MaxValue + 1;
@@ -32,7 +33,7 @@ namespace AdditionalFreightTransporters
                 Debug.Log("AdditionalFreightTransporters: More Vehicles is not enabled");
                 Mod.MaxVehicleCount = VehicleManager.MAX_VEHICLE_COUNT;
             }
-            if (Util.IsModActive("Vehicle Selector"))
+            if (Utils.Util.IsModActive("Vehicle Selector"))
             {
                 Debug.Log("AdditionalFreightTransporters: Vehicle Selector is detected! CargoTruckAI.ChangeVehicleType() won't be patched");
             } 
@@ -54,17 +55,24 @@ namespace AdditionalFreightTransporters
                 return;
             }
             _gameObject = new GameObject("AdditionalFreightTransporters");
+            _gameObject2 = new GameObject("SpawnPositionInverterPanelExtender");
+            _gameObject2.AddComponent<GamePanelExtender>();
         }
 
         public override void OnLevelUnloading()
         {
             base.OnLevelUnloading();
-            if (_gameObject == null)
+            Configuration.Reset();
+            if (_gameObject != null)
             {
-                return;
+                Object.Destroy(_gameObject);
+                _gameObject = null;
             }
-            Object.Destroy(_gameObject);
-            _gameObject = null;
+            if (_gameObject2 != null)
+            {
+                Object.Destroy(_gameObject2);
+                _gameObject2 = null;
+            }
         } 
 
         public override void OnReleased()
