@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.8.34330.188
+VisualStudioVersion = 17.14.36804.6 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdditionalFreightTransporters", "AdditionalFreightTransporters\AdditionalFreightTransporters.csproj", "{2E5B33CD-A365-4A1B-A009-59E504A3ADCC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdditionalFreightTransporters", "AdditionalFreightTransporters.csproj", "{33AD9C24-6FFE-E2E4-F5C0-D01EC28B6837}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2E5B33CD-A365-4A1B-A009-59E504A3ADCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E5B33CD-A365-4A1B-A009-59E504A3ADCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E5B33CD-A365-4A1B-A009-59E504A3ADCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E5B33CD-A365-4A1B-A009-59E504A3ADCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33AD9C24-6FFE-E2E4-F5C0-D01EC28B6837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33AD9C24-6FFE-E2E4-F5C0-D01EC28B6837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33AD9C24-6FFE-E2E4-F5C0-D01EC28B6837}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33AD9C24-6FFE-E2E4-F5C0-D01EC28B6837}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {D5793970-DA4C-4C70-893F-BB38C2B61029}
+		SolutionGuid = {2AF2130E-440E-40F7-89A8-4B9576085827}
 	EndGlobalSection
 EndGlobal
