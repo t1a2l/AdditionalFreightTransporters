@@ -528,9 +528,10 @@ namespace AdditionalFreightTransporters.AI
             return num >= m_storageCapacity;
         }
 
-        public override bool CanBeRelocated(ushort buildingID, ref Building data)
+        public override bool CanBeRelocated(ushort buildingID, ref Building data, out string tooltip)
         {
             int num = data.m_customBuffer1 * 100;
+            tooltip = ((num != 0) ? "CITYSERVICE_RELOCATE_NOT_EMPTY" : string.Empty);
             return num == 0;
         }
 
