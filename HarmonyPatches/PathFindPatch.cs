@@ -15,7 +15,7 @@ namespace AdditionalFreightTransporters.HarmonyPatches
 
         public static MethodBase TargetMethod()
         {
-            return AccessTools.FirstMethod(typeof(PathFind), method => method.Name == "ProcessItem" && method.GetParameters().Length == 5);
+            return AccessTools.FirstMethod(typeof(PathFind), method => method.Name == "ProcessItemMain" && method.GetParameters().Length == 6);
         }
 
         [HarmonyTranspiler]
